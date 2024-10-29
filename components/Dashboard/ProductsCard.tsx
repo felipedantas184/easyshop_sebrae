@@ -2,7 +2,6 @@ import { Product } from "@/types/productType";
 import { deleteProduct } from "@/utils/functions";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa6";
 import styled from "styled-components";

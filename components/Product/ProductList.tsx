@@ -86,24 +86,6 @@ const BrandWrapper = styled.div`
   overflow-y: hidden;
   white-space: nowrap;
 `
-const BrandTopic = styled.div`
-  background-color: #FAFAFA;
-  padding: 12px 8px;
-  border: 1px solid #C4C4C4;
-  border-radius: 10px;
-  font-weight: 500;
-  font-size: 14px;
-  cursor: pointer;
-`
-const RadioButtons = styled.div`
-  align-self: flex-start;
-  padding: 4px; 
-   
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 16px;
-`
 const RadioInput = styled.input`
   display: none;
 

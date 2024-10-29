@@ -7,7 +7,7 @@ const OrdersList = ({orders, getProductName} : {orders : Order[], getProductName
     <Wrapper>
       <Title>Pedidos</Title>
       {orders.map((order : Order) => (
-        <OrdersCard order={order} getProductName={getProductName} />
+        <OrdersCard key={order.id} order={order} getProductName={getProductName} />
       ))}
     </Wrapper>
    );
