@@ -2,7 +2,7 @@ import { Product } from "@/types/productType";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import AddToCartButton from "../Buttons/AddToCartButton";
 
