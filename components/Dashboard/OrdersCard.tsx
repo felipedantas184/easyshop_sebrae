@@ -1,6 +1,6 @@
 import { Order } from "@/types/productType";
-import { deleteOrder } from "@/utils/functions";
-import { FaCreditCard, FaLocationPin, FaTrash, FaTruck, FaUser, FaWhatsapp } from "react-icons/fa6";
+{/**import { deleteOrder } from "@/utils/functions"; */}
+import { FaCreditCard, FaLocationPin, FaTruck, FaUser, FaWhatsapp } from "react-icons/fa6";
 import styled from "styled-components";
 
 const OrdersCard = ({ order, getProductName }: { order: Order, getProductName: (productId: string) => string }) => {
