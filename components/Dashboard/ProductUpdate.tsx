@@ -1,16 +1,14 @@
 import fireDB from "@/firebase/initFirebase";
-import { Product } from "@/types/productType";
+import { NewProduct, Product } from "@/types/productType";
 import { doc, updateDoc } from "firebase/firestore";
 import { useState } from "react";
 import styled from "styled-components";
 
 const ProductUpdate = ({ product, setSelectedProduct } : { product : Product, setSelectedProduct : any}) => {
-  const [newProduct, setNewProduct] = useState<Product>({
-    id: product.id,
-    imageUrl: product.imageUrl,
-    featureImage: product.featureImage, 
+  const [newProduct, setNewProduct] = useState<NewProduct>({
     title: product.title,
     brand: product.brand,
+    category: product.category,
     description: product.description,
     price: product.price,
     stock: product.stock,
@@ -173,7 +171,7 @@ const UpdateButton = styled.button`
   }
 
   &:active {
-    background-color: #5A189A;
+    background-color: #2694A7;
     box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
     transform: translateY(0);
   }

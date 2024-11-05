@@ -41,6 +41,7 @@ export const addProduct = async (imageUpload : any, newProduct : NewProduct, rou
     await addDoc(collection(fireDB, "products"), {
       title: newProduct.title,
       brand: newProduct.brand,
+      category: newProduct.category,
       description: newProduct.description,
       price:  Number(newProduct.price),
       stock:  Number(newProduct.stock),

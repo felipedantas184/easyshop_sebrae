@@ -9,10 +9,10 @@ const OrdersCard = ({ order, getProductName }: { order: Order, getProductName: (
       <SpaceBetween>
         <MainText><FaUser size={10} color="#13313a" /> {order.personal.name}</MainText>
         <DoubleIcon>
-          <a href="https://wa.me//5586995185757" >
+          <a href={`https://wa.me//55${order.personal.phone.replace('-','').replace(')','').replace('(','').replace(' ','')}`} >
             <FaWhatsapp size={16} color="#01cc65" />
           </a>
-          <FaTrash size={16} color="#F1AAAA" onClick={() => deleteOrder(order)} />
+          {/**<FaTrash size={16} color="#F1AAAA" onClick={() => deleteOrder(order)} />*/}
         </DoubleIcon>
       </SpaceBetween>
       <SpaceBetween>
@@ -28,7 +28,7 @@ const OrdersCard = ({ order, getProductName }: { order: Order, getProductName: (
             <SText>{order.delivery?.zipCode}, {order.delivery?.city}-{order.delivery?.state}</SText>
           </TextWrapper>
         )}
-        <SText>{order.date}</SText>
+        <SText>{order.timeStamp.replace(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/, '$4:$5:$6 $3/$2/$1')}</SText>
       </SpaceBetween>
       <TextWrapper>
         {order.cart.map((product: any) => (

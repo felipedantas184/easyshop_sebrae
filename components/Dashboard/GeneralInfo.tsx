@@ -20,7 +20,7 @@ const GeneralInfo = ({orders} : {orders : Order[]}) => {
         </Card>
         <Card>
           <CardTitle>Total no Mês</CardTitle>
-          {/** <CardNumber>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(orders.filter((order: any) => (order.date.slice(3, 4) === `${new Date().getMonth() + 1}`)).reduce((acc: any, curr: any) => (acc + curr.amount), 0))}</CardNumber> */}
+          <CardNumber>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(orders.filter((order: Order) => (order.timeStamp.slice(4, 6) === `${new Date().getMonth() + 1}`)).reduce((acc: any, curr: any) => (acc + curr.amount), 0))}</CardNumber>
         </Card>
       </Menu>
     </Wrapper>

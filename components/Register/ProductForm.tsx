@@ -10,9 +10,10 @@ const ProductForm = () => {
   const [newProduct, setNewProduct] = useState<NewProduct>({
     title: '',
     brand: '',
+    category: '',
     description: '',
-    price: 0,
-    stock: 0,
+    price: 100,
+    stock: 100,
   })
 
   const handleNewProduct = async (e: any) => {
@@ -32,6 +33,12 @@ const ProductForm = () => {
         <Label>Marca</Label>
         <Input type='text' placeholder="Marca do produto" required
           value={newProduct.brand} onChange={(e: any) => setNewProduct({ ...newProduct, brand: e.target.value })}
+        />
+      </InputWrapper>
+      <InputWrapper>
+        <Label>Categoria</Label>
+        <Input type='text' placeholder="Categoria do produto" required
+          value={newProduct.category} onChange={(e: any) => setNewProduct({ ...newProduct, category: e.target.value })}
         />
       </InputWrapper>
       <InputWrapper>
@@ -142,7 +149,7 @@ const RegistertButton = styled.button`
   margin: 0;
   padding: calc(.875rem - 1px) calc(1.5rem - 1px);
 
-  background-color: #5A189A;
+  background-color: #2694A7;
   background-clip: padding-box;
 
   border: 1px solid transparent;
@@ -180,7 +187,7 @@ const RegistertButton = styled.button`
   }
 
   &:active {
-    background-color: #5A189A;
+    background-color: #2694A7;
     box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
     transform: translateY(0);
   }

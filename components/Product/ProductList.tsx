@@ -18,7 +18,7 @@ const ProductList = ({ products }: { products: Product[] }) => {
   }
 
   return (
-    <>
+    <Wrapper>
       <TextWrapper>
         <Title>Nossos Produtos</Title>
         {(brandFilter) ? (
@@ -50,14 +50,26 @@ const ProductList = ({ products }: { products: Product[] }) => {
           ))
         )}
       </GridList>
-    </>
+    </Wrapper>
   );
 }
 
 export default ProductList;
 
 
+const Wrapper = styled.div`
+  width: 100%;
+  max-width: 1080px;
+  padding: 8px;
+	margin-left: auto;
+	margin-right: auto;
 
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+  gap: 8px;
+`
 const TextWrapper = styled.div`
   width: 100%;
   display: flex;

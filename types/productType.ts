@@ -2,6 +2,7 @@ type Product = {
   id: string,
   title: string,
   brand: string,
+  category: string,
   imageUrl: string[],
   featureImage: string,
   description: string,
@@ -12,6 +13,7 @@ type Product = {
 type NewProduct = {
   title: string,
   brand: string,
+  category: string,
   description: string,
   price: number,
   stock: number,
@@ -26,7 +28,7 @@ type Order = {
   id: string,
   amount: number,
   cart: OrderCart[],
-  date: string,
+  timeStamp: string,
   deliveryType: string,
   delivery?: {
     zipCode: string,

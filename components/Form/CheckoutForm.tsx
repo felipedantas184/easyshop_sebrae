@@ -49,8 +49,9 @@ const CheckoutForm = () => {
 
   }, [cart, delivery, personal])
 
+  function pad2(n:number) { return n < 10 ? '0' + n : n }
   const date = new Date();
-  const currentDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`
+  const currentDate = date.getFullYear().toString() + pad2(date.getMonth() + 1) + pad2(date.getDate()) + pad2(date.getHours()) + pad2(date.getMinutes()) + pad2(date.getSeconds())
 
   const handleOrder = async (e: any) => {
     e.preventDefault()
@@ -58,6 +59,7 @@ const CheckoutForm = () => {
       const obj = {
         id: item.id,
         quantity: item.quantity,
+        price: item.price
       }
       cartOrder.push(obj)
     });
@@ -69,7 +71,7 @@ const CheckoutForm = () => {
         deliveryType: pickUp ? 'pickup' : 'delivery',
         paymentMethod: paymentMethod,
         amount: cart.reduce((acc: any, curr: any) => acc + curr.price * curr.quantity, 0),
-        date: currentDate
+        timeStamp: currentDate
       }).then(function (docRef) {
         dispatch(addOrder({
           id: docRef.id,
@@ -211,7 +213,7 @@ const CheckoutButton = styled.button`
   margin: 0;
   padding: calc(.875rem - 1px) calc(1.5rem - 1px);
 
-  background-color: #5A189A;
+  background-color: #2694A7;
   background-clip: padding-box;
 
   border: 1px solid transparent;
@@ -249,7 +251,7 @@ const CheckoutButton = styled.button`
   }
 
   &:active {
-    background-color: #5A189A;
+    background-color: #2694A7;
     box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
     transform: translateY(0);
   }
