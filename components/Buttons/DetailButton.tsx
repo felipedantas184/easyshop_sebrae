@@ -14,12 +14,12 @@ const DetailButton = ({ product }: { product: Product }) => {
       {(!cartItem) ? (
         <>
           <AddToCart onClick={() => dispatch(addToCart(product))}>Adicionar ao Carrinho</AddToCart>
-          <Favorite onClick={() => (navigator.share({ title: "MDN", text: "Learn web development on MDN!", url: "https://developer.mozilla.org" }))} ><FaShare size={16} color='#2694A7' /></Favorite>
+          <Favorite onClick={() => (navigator.share({ title: product.title, text: `Encontrei esse ${product.title} no site da Tecdata! Confere clicando nesse link"`, url: window.location.href }))} ><FaShare size={16} color='#2694A7' /></Favorite>
         </>
       ) : (
         <>
           <AddToCart disabled={product.stock <= cartItem.quantity} onClick={() => dispatch(addToCart(product))}>Adicionar ao Carrinho ({cartItem?.quantity})</AddToCart>
-          <Favorite onClick={() => (navigator.share({ title: "MDN", text: "Learn web development on MDN!", url: "https://developer.mozilla.org" }))} ><FaShare size={16} color='#2694A7' /></Favorite>
+          <Favorite onClick={() => (navigator.share({ title: product.title, text: `Encontrei esse ${product.title} no site da Tecdata! Confere clicando nesse link"`, url: window.location.href }))} ><FaShare size={16} color='#2694A7' /></Favorite>
         </>
       )}
     </ButtonGroup>
