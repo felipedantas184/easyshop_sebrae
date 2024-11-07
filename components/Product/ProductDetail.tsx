@@ -2,9 +2,11 @@ import { Product } from "@/types/productType";
 import Image from "next/image";
 import styled from "styled-components";
 import DetailButton from "../Buttons/DetailButton";
+import ProductFeatures from "./ProductFeatures";
 
 const ProductDetail = ({product} : {product : Product}) => {
   return ( 
+    <>
     <Section>
         <Wrapper>
           <ImageWrapper>
@@ -23,6 +25,8 @@ const ProductDetail = ({product} : {product : Product}) => {
           </BigWrapper>
         </Wrapper>
       </Section>
+      <ProductFeatures product={product} />
+      </>
    );
 }
  
