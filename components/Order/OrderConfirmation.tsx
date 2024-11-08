@@ -1,12 +1,13 @@
+import { QrCodePix } from "@/utils/GenerateQRCode";
+import { QRCodeSVG } from "qrcode.react";
 import Link from "next/link";
-import { FaCheckCircle } from "react-icons/fa";
-import { FaArrowLeft } from "react-icons/fa6";
+import { FaArrowLeft, FaHourglassHalf } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 const OrderConfirmation = () => {
   const order = useSelector((state: any) => state.order);
-  
+
   const personalMessageComposure = "```" + order?.lastOrder?.personal.name + '%0A' + order?.lastOrder?.personal.email + '%0A' + order?.lastOrder?.personal.phone + "```"
   const deliveryMessageComposure = (order?.lastOrder?.deliveryType === "pickup") ? '```Reirada na loja```' : "```" + order?.lastOrder?.delivery.address + ', ' + order?.lastOrder?.delivery.number + ' - ' + order?.lastOrder?.delivery.complement + '%0A' + order?.lastOrder?.delivery.zipCode + '%0A' + order?.lastOrder?.delivery.city + ', ' + order?.lastOrder?.delivery.state + "```"
   const paymentMessageComposure = "```" + order?.lastOrder?.paymentMethod + "```"
@@ -14,7 +15,18 @@ const OrderConfirmation = () => {
     return idx == 0 ? Number(idx + 1) + '. ' + "```" + currVal.title + ` (x${currVal.quantity})` + "```" + `%0A${Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(currVal.price * currVal.quantity)}` : prevVal + '%0A%0A' + Number(idx + 1) + '. ' + "```" + currVal.title + ` (x${currVal.quantity})` + "```" + `%0A${Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(currVal.price * currVal.quantity)}`;
   }, '')
 
-  const message = `📄 *RESUMO DA COMPRA*%0A_${order?.lastOrder.id}_%0A%0A----------------------------------------------%0A👤 *Informações do Cliente:*%0A${personalMessageComposure}%0A%0A----------------------------------------------%0A🚛 *Informações da Entrega:*%0A${deliveryMessageComposure}%0A%0A----------------------------------------------%0A📃 *Informações do Pedido:*%0A${cartMessageComposure}%0A%0A----------------------------------------------%0A💳 *Forma do Pagamento:*%0A${paymentMessageComposure}%0A%0A----------------------------------------------%0A%0A💵 *Total a Pagar:*%0A${Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(order?.lastOrder?.cart.reduce((acc: any, curr: any) => acc + curr.price*curr.quantity, 0))}`
+  const message = `📄 *RESUMO DA COMPRA*%0A_${order?.lastOrder.id}_%0A%0A----------------------------------------------%0A👤 *Informações do Cliente:*%0A${personalMessageComposure}%0A%0A----------------------------------------------%0A🚛 *Informações da Entrega:*%0A${deliveryMessageComposure}%0A%0A----------------------------------------------%0A📃 *Informações do Pedido:*%0A${cartMessageComposure}%0A%0A----------------------------------------------%0A💳 *Forma do Pagamento:*%0A${paymentMessageComposure}%0A%0A----------------------------------------------%0A%0A💵 *Total a Pagar:*%0A${Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(order?.lastOrder?.cart.reduce((acc: any, curr: any) => acc + curr.price * curr.quantity, 0))}`
+
+  const qrCodePix = QrCodePix({
+    version: '01',
+    key: '05620204383', //or any PIX key
+    name: 'Felipe Augusto Oliveira Dantas',
+    city: 'Teresina',
+    transactionId: order?.lastOrder?.id,
+    message: `Compra na loja Tecdata. Código do pedido: ${order?.lastOrder?.id}`,
+    cep: '64091250',
+    value: order?.lastOrder?.amount,
+  });
 
   return (
     <Wrapper>
@@ -23,9 +35,16 @@ const OrderConfirmation = () => {
         <Subtitle>Página inicial</Subtitle>
       </BackWrapper>
       <TextWrapper>
-        <FaCheckCircle size={48} color="#08A045" />
-        <Title>Estamos Quase Lá!</Title>
-        <Subtitle>Agora você precisa enviar a confirmação do pedido via WhatsApp para o vendedor!</Subtitle>
+        <FaHourglassHalf size={48} color="#a07c08" />
+        <Title>Falta Pouco!<br /> Efetue o pagamento para confirmar o pedido!</Title>
+        <Subtitle>Leia o QR Code para efetuar o pagamento.<br/>A confirmação do seu pedido pode levar algum tempo.</Subtitle>
+        <QRCodeSVG
+          value={qrCodePix.payload()}
+          size={210}
+          bgColor={'#ffffff'}
+          fgColor={'#000000'}
+          level={'L'}
+        />
         <CheckoutButton href={`https://wa.me//5586995185757?text=${message}`}>Enviar Pedido</CheckoutButton>
       </TextWrapper>
     </Wrapper>
@@ -72,7 +91,7 @@ export const TextWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-  gap: 4px;
+  gap: 8px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 `
 export const Title = styled.h1`
