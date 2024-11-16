@@ -3,7 +3,7 @@ import { addProduct } from "@/utils/functions";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
-import { v1, v4 } from "uuid";
+import { v4 } from "uuid";
 
 const ProductForm = () => {
   const router = useRouter()
