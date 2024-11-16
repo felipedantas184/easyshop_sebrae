@@ -3,24 +3,71 @@ import { addProduct } from "@/utils/functions";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
+import { v1, v4 } from "uuid";
 
 const ProductForm = () => {
   const router = useRouter()
   const [imageUpload, setImageUpload] = useState<any>(null);
+  const [variant, setVariant] = useState<boolean>(false);
+  const [promoPrice, setPromoPrice] = useState<any>([]);
   const [newProduct, setNewProduct] = useState<NewProduct>({
     title: '',
     brand: '',
     category: '',
     description: '',
-    price: 100,
-    stock: 100,
   })
+  const variantsInitialState = [{
+    id: v4().slice(-12),
+    name: 'Único',
+    price: null,
+    promotional: null,
+    stock: null
+  }]
+  const [variants, setVariants] = useState<any>(variantsInitialState);
 
   const handleNewProduct = async (e: any) => {
     e.preventDefault()
-    addProduct(imageUpload, newProduct, router)
-  } 
-  
+    addProduct(imageUpload, newProduct, variants, router)
+  }
+
+  const handleAdd = (e: any) => {
+    e.preventDefault()
+    const abc = [...variants, {id: v4().slice(-12)}]
+    setVariants(abc)
+  }
+  const handleChangeName = (onChangeValue: any, i: any) => {
+    const inputData = [...variants]
+    inputData[i].name = onChangeValue.target.value;
+    setVariants(inputData)
+  }
+  const handleChangePrice = (onChangeValue: any, i: any) => {
+    const inputData = [...variants]
+    inputData[i].price = Number(onChangeValue.target.value);
+    setVariants(inputData)
+  }
+  const handleChangePromotional = (onChangeValue: any, i: any) => {
+    const inputData = [...variants]
+    inputData[i].promotional = Number(onChangeValue.target.value);
+    setVariants(inputData)
+  }
+  const handleChangeStock = (onChangeValue: any, i: any) => {
+    const inputData = [...variants]
+    inputData[i].stock = Number(onChangeValue.target.value);
+    setVariants(inputData)
+  }
+  const handleDelete = (i: any) => {
+    const deletVariante = [...variants]
+    deletVariante.splice(i, 1)
+    setVariants(deletVariante)
+  }
+  const handleUnicName = () => {
+    const inputData = [variants[0]]
+    inputData[0].name = "Único";
+    setVariants(inputData)
+  }
+
+  console.log(variants)
+
   return (
     <Form onSubmit={handleNewProduct}>
       <InputWrapper>
@@ -47,20 +94,64 @@ const ProductForm = () => {
           value={newProduct.description} onChange={(e: any) => setNewProduct({ ...newProduct, description: e.target.value })}
         />
       </InputWrapper>
-      <InputDoubleWrapper>
-        <InputWrapper>
-          <Label>Preço</Label>
-          <Input type='number' placeholder="Preço" required
-            value={newProduct.price} onChange={(e: any) => setNewProduct({ ...newProduct, price: e.target.value })}
-          />
-        </InputWrapper>
-        <InputWrapper>
-          <Label>Estoque</Label>
-          <Input type='number' placeholder="Estoque" required
-            value={newProduct.stock} onChange={(e: any) => setNewProduct({ ...newProduct, stock: e.target.value })}
-          />
-        </InputWrapper>
-      </InputDoubleWrapper>
+      <RadioButtons>
+        <RadioInput type="radio" name="size" id="big" checked={!variant} onClick={() => {setVariant(false); handleUnicName()}} />
+        <RadioLabel htmlFor="big">Produto sem variante</RadioLabel>
+
+        <RadioInput type="radio" name="size" id="small" checked={variant} onClick={() => setVariant(true)} />
+        <RadioLabel htmlFor="small">Definir variantes</RadioLabel>
+      </RadioButtons>
+
+      {variants.map((data: any, i: any) => {
+        return (
+          <>
+            <InputDoubleWrapper>
+              {(variant) ? (
+                <InputWrapper>
+                  <Label>Variante</Label>
+                  <Input type='text' placeholder="Nome" required
+                    value={data.name} onChange={e => handleChangeName(e, i)}
+                  />
+                </InputWrapper>
+              ) : (<></>)}
+              <InputWrapper>
+                <Label>Preço</Label>
+                <Input type='number' placeholder="Preço" required
+                  value={data.price} onChange={e => handleChangePrice(e, i)}
+                />
+              </InputWrapper>
+              {(promoPrice.includes(i)) ? (
+                <InputWrapper>
+                  <Label>Preço Promocional</Label>
+                  <Input type='number' placeholder="Preço Promocional" required
+                    value={data.promotional} onChange={e => handleChangePromotional(e, i)}
+                  />
+                </InputWrapper>
+              ) : (<></>)}
+              <InputWrapper>
+                <Label>Estoque</Label>
+                <Input type='number' placeholder="Estoque" required
+                  value={data.stock} onChange={e => handleChangeStock(e, i)}
+                />
+              </InputWrapper>
+              <button onClick={() => handleDelete(i)}>x</button>
+            </InputDoubleWrapper>
+            <div style={{ width: '50%', display: 'flex', flexDirection: 'row', alignItems: 'center', alignSelf: 'flex-start', gap: 24, paddingLeft: 8 }} >
+              <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 4, alignSelf: 'flex-start' }} >
+                <input type="radio" id={`promo${i}`} checked={promoPrice.includes(i)} name={`promo${i}`} onClick={() => { setPromoPrice([...promoPrice, i]) }} />
+                <label htmlFor={`promo${i}`} style={{ fontSize: 12 }}>Definir preço promocional</label>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 4, alignSelf: 'flex-start' }} >
+                <input type="radio" id={`noPromo${i}`} checked={!promoPrice.includes(i)} name={`promo${i}`} onClick={() => { setPromoPrice(promoPrice.filter((item: { item: any }) => item != i)) }} />
+                <label htmlFor={`noPromo${i}`} style={{ fontSize: 12 }}>Não definir preço promocional</label>
+              </div>
+            </div>
+          </>
+        )
+      })}
+      {(variant) ? (
+        <RegistertButton onClick={(e) => handleAdd(e)}>Adicionar Variante</RegistertButton>
+      ) : (<></>)}
       <InputWrapper>
         <Label>Foto</Label>
         <Input type='file' accept="image/*" required onChange={(e) => (setImageUpload(e.target.files))} multiple />
@@ -133,6 +224,38 @@ const TextArea = styled.textarea`
     font-size: 14px;
     font-weight: 600;
   }
+`
+const RadioButtons = styled.div`
+  align-self: flex-start;
+  padding: 4px; 
+   
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+`
+const RadioInput = styled.input`
+  display: none;
+
+  &:checked + label {
+    background-color: #01cc65;
+    color: #FFFFFF;
+  }
+`
+const RadioLabel = styled.label`
+  position: relative;
+  color: #01cc65;
+  font-family: "Montserrat";
+  font-size: 16px;
+  border: 2px solid #01cc65;
+  border-radius: 5px;
+  padding: 8px 16px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
 `
 const InputDoubleWrapper = styled.div`
   width: 100%;

@@ -17,6 +17,8 @@ const ProductList = ({ products }: { products: Product[] }) => {
     return 0;
   }
 
+  console.log(products)
+
   return (
     <Wrapper>
       <TextWrapper>

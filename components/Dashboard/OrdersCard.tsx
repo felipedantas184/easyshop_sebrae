@@ -32,7 +32,7 @@ const OrdersCard = ({ order, getProductName }: { order: Order, getProductName: (
       </SpaceBetween>
       <TextWrapper>
         {order.cart.map((product: any) => (
-          <SText key={product.id} >- {getProductName(product.id)} (x{product.quantity})</SText>
+          <SText key={product.id} >- {getProductName(product.productId)} - {product.variantName} (x{product.quantity})</SText>
         ))}
       </TextWrapper>
     </Card>

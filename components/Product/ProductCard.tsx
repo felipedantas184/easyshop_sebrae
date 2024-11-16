@@ -21,9 +21,10 @@ const ProductCard = ({product} : {product : Product}) => {
       <TextWrapper href={'/'} >
         <Brand>{product.brand}</Brand>
         <Title>{product.title}</Title>
-        <Price>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(product.price)}</Price>
+        <Price>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format((product.variants[0].promotional ? product.variants[0].promotional : product.variants[0].price))}</Price>
       </TextWrapper>
-      <AddToCartButton product={product} />
+      <ViewProductButton href={`/${product.id}`} >Visualizar Produto</ViewProductButton>
+      {/**<AddToCartButton product={product} /> */}
     </CardLi>
   );
 }
@@ -94,4 +95,55 @@ const Price = styled.h4`
   color: #13131A;
   font-size: 14px;
   font-weight: 500;
+`
+const ViewProductButton = styled(Link)`
+  margin: 0;
+  padding: 8px 12px;
+
+  background-color: #2694A7;
+  background-clip: padding-box;
+
+  border: none;
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+  box-sizing: border-box;
+
+  color: #fff;
+  font-family: "Montserrat";
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.25;
+  text-decoration: none;
+  cursor: pointer;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  transition: all 250ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  -webkit-tap-highlight-color: transparent;
+
+  &:hover, &:focus {
+    background-color: #13131A;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+  }
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    background-color: #2694A7;
+    box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    background-color: #545454;
+  }
 `

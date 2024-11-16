@@ -1,13 +1,47 @@
+type Variant = {
+  id: string,
+  name: string,
+  price: number,
+  promotional?: number,
+  stock: number
+}
+
+type SelectedVariant = {
+  id: string,
+  name: string,
+  stock: number
+}
+
 type Product = {
   id: string,
   title: string,
   brand: string,
   category: string,
-  imageUrl: string[],
-  featureImage: string,
   description: string,
-  price: number,
-  stock: number,
+  imageUrl: string[],
+  variants: Variant[],
+}
+
+type DetailProduct = {
+  id: string,
+  title: string,
+  brand: string,
+  category: string,
+  description: string,
+  imageUrl: string[],
+  selectedVariant: SelectedVariant,
+  price: number
+}
+
+type CartProduct = {
+  id: string,
+  title: string,
+  brand: string,
+  category: string,
+  description: string,
+  imageUrl: string[],
+  selectedVariant: Variant,
+  quantity: number
 }
 
 type NewProduct = {
@@ -15,13 +49,14 @@ type NewProduct = {
   brand: string,
   category: string,
   description: string,
-  price: number,
-  stock: number,
 }
 
 type OrderCart = {
-  id: string,
-  quantity: number
+  productId: string,
+  variantId: string,
+  variantName: string,
+  variantPrice: number 
+  quantity: number,
 }
 
 type Order = {
@@ -52,17 +87,19 @@ type CartItem = {
   id: string,
   title: string,
   brand: string,
-  imageUrl: string[],
-  featureImage: string,
+  category: string,
   description: string,
-  price: number,
-  stock: number,
+  imageUrl: string[],
+  selectedVariant: SelectedVariant,
   quantity: number,
+  price: number
 }
 
 export type {
   Product,
+  DetailProduct,
   NewProduct,
   CartItem,
-  Order
+  Order,
+  Variant
 }

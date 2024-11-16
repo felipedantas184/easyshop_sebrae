@@ -9,11 +9,11 @@ const AddToCartButton = ({product} : {product : Product}) => {
   const cartItem = cart.find((item: any) => item.id === product.id)
 
   return ( 
-    (product.stock <= 0) ? (
+    (product.variants[0].stock <= 0) ? (
       <AddButton disabled>Esgotado</AddButton>
     ) : (
       (cartItem) ? (
-        <AddButton disabled={cartItem.quantity >= product.stock} onClick={() => dispatch(addToCart(product))}>Adicionar ({cartItem?.quantity})</AddButton>
+        <AddButton disabled={cartItem.quantity >= product.variants[0].stock} onClick={() => dispatch(addToCart(product))}>Adicionar ({cartItem?.quantity})</AddButton>
       ) : (
         <AddButton onClick={() => dispatch(addToCart(product))}>Adicionar</AddButton>
       )

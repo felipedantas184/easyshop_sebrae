@@ -3,7 +3,7 @@ import Delivery from "./Delivery";
 import Payment from "./Payment";
 import Personal from "./Personal";
 import { useDispatch, useSelector } from "react-redux";
-import { addDoc, collection, doc, increment, updateDoc } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, increment, updateDoc } from "firebase/firestore";
 import fireDB from "@/firebase/initFirebase";
 import { removeFromCart } from "@/redux/cart.slice";
 import { useRouter } from "next/router";
@@ -12,6 +12,8 @@ import { IoLocationSharp } from "react-icons/io5";
 import { FaTruck, FaUser, FaWallet } from "react-icons/fa6";
 import styled from "styled-components";
 import { sendOrderEmail } from "@/lib/api";
+import { CartItem } from "@/types/productType";
+import { updateStockAfterPurchase } from "@/utils/functions";
 
 const CheckoutForm = () => {
   const cart = useSelector((state: any) => state.cart);
@@ -49,15 +51,17 @@ const CheckoutForm = () => {
 
   }, [cart, delivery, personal])
 
-  function pad2(n:number) { return n < 10 ? '0' + n : n }
+  function pad2(n: number) { return n < 10 ? '0' + n : n }
   const date = new Date();
   const currentDate = date.getFullYear().toString() + pad2(date.getMonth() + 1) + pad2(date.getDate()) + pad2(date.getHours()) + pad2(date.getMinutes()) + pad2(date.getSeconds())
 
   const handleOrder = async (e: any) => {
     e.preventDefault()
-    cart.forEach((item: any) => {
+    cart.forEach((item: CartItem) => {
       const obj = {
-        id: item.id,
+        productId: item.id,
+        variantId: item.selectedVariant.id,
+        variantName: item.selectedVariant.name,
         quantity: item.quantity,
         price: item.price
       }
@@ -108,11 +112,7 @@ const CheckoutForm = () => {
           date: currentDate
         }))
         localStorage.removeItem("wpp-catalog-cart")
-        cart.map((item: any) => (
-          updateDoc(doc(fireDB, "products", item.id), {
-            stock: increment(-item.quantity),
-          })
-        ))
+        updateStockAfterPurchase(cart)
       }).then(
         cart.map((item: any) => (
           dispatch(removeFromCart(item))

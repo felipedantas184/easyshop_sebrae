@@ -21,7 +21,7 @@ const CheckoutCard = ({product} : {product : CartItem}) => {
         <Buttons>
           <QntButton onClick={() => dispatch(decrementQuantity(product.id))}><FaMinusCircle size={16} color='#13131A' /></QntButton>
           <p>{product.quantity}</p>
-          <QntButton disabled={product.quantity >= product.stock} onClick={() => dispatch(incrementQuantity(product.id))}><FaPlusCircle size={16} color={(product.quantity >= product.stock) ? '$D4D4D4' : '#13131A'} /></QntButton>
+          <QntButton disabled={product.quantity >= product.selectedVariant.stock} onClick={() => dispatch(incrementQuantity(product.id))}><FaPlusCircle size={16} color={(product.quantity >= product.selectedVariant.stock) ? '$D4D4D4' : '#13131A'} /></QntButton>
         </Buttons>
       </TextWrapper>
     </Card>

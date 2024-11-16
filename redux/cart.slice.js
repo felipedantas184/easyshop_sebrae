@@ -5,7 +5,7 @@ const cartSlice = createSlice({
   initialState: typeof window !== "undefined" && localStorage.getItem("wpp-catalog-cart") ? JSON.parse(localStorage.getItem("wpp-catalog-cart")) : [],
   reducers: {
     addToCart: (state, action) => {
-      const itemExists = state.find((item) => item.id === action.payload.id);
+      const itemExists = state.find((item) => item.id === action.payload.id && item.selectedVariant.id === action.payload.selectedVariant.id);
       if (itemExists) {
         itemExists.quantity++;
       } else {

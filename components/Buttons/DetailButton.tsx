@@ -1,13 +1,13 @@
 import { addToCart } from "@/redux/cart.slice";
-import { Product } from "@/types/productType";
+import { DetailProduct } from "@/types/productType";
 import { FaShare } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
-const DetailButton = ({ product }: { product: Product }) => {
+const DetailButton = ({ product }: { product: DetailProduct }) => {
   const dispatch = useDispatch();
   const cart = useSelector((state: any) => state.cart);
-  const cartItem = cart.find((item: any) => item.id === product.id)
+  const cartItem = cart.find((item: any) => item.id === product.id && item.selectedVariant.id === product.selectedVariant.id)
 
   return (
     <ButtonGroup>
@@ -18,7 +18,7 @@ const DetailButton = ({ product }: { product: Product }) => {
         </>
       ) : (
         <>
-          <AddToCart disabled={product.stock <= cartItem.quantity} onClick={() => dispatch(addToCart(product))}>Adicionar ao Carrinho ({cartItem?.quantity})</AddToCart>
+          <AddToCart disabled={product.selectedVariant.stock <= cartItem.quantity} onClick={() => dispatch(addToCart(product))}>Adicionar ao Carrinho ({cartItem?.quantity})</AddToCart>
           <Favorite onClick={() => (navigator.share({ title: product.title, text: `Encontrei esse ${product.title} no site da Tecdata! Confere clicando nesse link"`, url: window.location.href }))} ><FaShare size={16} color='#2694A7' /></Favorite>
         </>
       )}

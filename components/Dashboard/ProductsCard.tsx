@@ -17,14 +17,14 @@ const ProductsCard = ({product, selectedProduct, setSelectedProduct} : {product 
           <Brand>{product.brand}</Brand>
           <DoubleIcon>
             <FaEdit size={16} color="#D4D4D4" onClick={() => (selectedProduct === product.id) ? (setSelectedProduct('')) : (setSelectedProduct(product.id))} />
-            <FaTrash size={16} color="#F1AAAA" onClick={() => deleteProduct(product.id)} />
+            <FaTrash size={16} color="#F1AAAA" onClick={() => deleteProduct(product.id)} /> 
           </DoubleIcon>
         </SpaceBetween>
         <SpaceBetween>
           <PTitle>{product.title}</PTitle>
-          <Quantity>Est.: {product.stock}</Quantity>
+          <Quantity>Est.: {product.variants.reduce((acc: any, curr: any) => acc + curr.stock, 0)}</Quantity>
         </SpaceBetween>
-        <Price>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(product.price)}</Price>
+        {/**<Price>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(product.price)}</Price>*/}
       </TextWrapper>
     </Card>
   );
