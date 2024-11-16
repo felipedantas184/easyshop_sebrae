@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import AddToCartButton from "../Buttons/AddToCartButton";
 
 const ProductCard = ({product} : {product : Product}) => {
   const cart = useSelector((state: any) => state.cart);

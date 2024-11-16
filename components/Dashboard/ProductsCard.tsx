@@ -103,11 +103,11 @@ const PTitle = styled.h2`
   font-size: 12px;
   font-weight: 500;
 `
-const Price = styled.span`
+/** const Price = styled.span`
   color: #13131A;
   font-size: 12px;
   font-weight: 600;
-`
+` */
 const Quantity = styled.span`
   color: #13131A;
   font-size: 12px;

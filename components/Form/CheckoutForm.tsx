@@ -3,7 +3,7 @@ import Delivery from "./Delivery";
 import Payment from "./Payment";
 import Personal from "./Personal";
 import { useDispatch, useSelector } from "react-redux";
-import { addDoc, collection, doc, getDoc, increment, updateDoc } from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 import fireDB from "@/firebase/initFirebase";
 import { removeFromCart } from "@/redux/cart.slice";
 import { useRouter } from "next/router";
