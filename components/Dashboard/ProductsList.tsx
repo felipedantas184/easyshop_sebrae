@@ -12,14 +12,14 @@ const ProductsList = ({ products }: { products: Product[] }) => {
     <Wrapper>
       <Title>Produtos</Title>
       {products.map((product: Product) => (
-        <>
+        <div key={product.id}>
           <ProductsCard product={product} selectedProduct={selectedProduct} setSelectedProduct={setSelectedProduct} />
           {(product.id === selectedProduct) ? (
             <ProductUpdate product={product} setSelectedProduct={setSelectedProduct} />
           ) : (
             <></>
           )}
-        </>
+        </div>
       ))}
       <AddButton href={'/auth/register'}>Adicionar Produto</AddButton>
     </Wrapper>

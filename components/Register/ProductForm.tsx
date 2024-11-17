@@ -109,7 +109,7 @@ const ProductForm = () => {
 
       {variants.map((data: any, i: any) => {
         return (
-          <>
+          <div key={i}>
             <InputDoubleWrapper>
               {(variant) ? (
                 <InputWrapper>
@@ -151,7 +151,7 @@ const ProductForm = () => {
                 <label htmlFor={`noPromo${i}`} style={{ fontSize: 12 }}>Não definir preço promocional</label>
               </div>
             </div>
-          </>
+          </div>
         )
       })}
       {(variant) ? (

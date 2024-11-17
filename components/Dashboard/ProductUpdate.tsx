@@ -99,7 +99,7 @@ const ProductUpdate = ({ product, setSelectedProduct }: { product: Product, setS
         <TextArea value={newProduct.description} onChange={(e: any) => setNewProduct({ ...newProduct, description: e.target.value })} />
       </InputWrapper>
       {(variants.map((variant: Variant, i: any) => (
-        <VariantWrapper>
+        <VariantWrapper key={variant.id} >
           <InputDoubleWrapper>
             <InputWrapper>
               <Label>Nome</Label>
