@@ -32,7 +32,7 @@ const ProductForm = () => {
 
   const handleAdd = (e: any) => {
     e.preventDefault()
-    const abc = [...variants, {id: v4().slice(-12)}]
+    const abc = [...variants, { id: v4().slice(-12) }]
     setVariants(abc)
   }
   const handleChangeName = (onChangeValue: any, i: any) => {
@@ -48,6 +48,11 @@ const ProductForm = () => {
   const handleChangePromotional = (onChangeValue: any, i: any) => {
     const inputData = [...variants]
     inputData[i].promotional = Number(onChangeValue.target.value);
+    setVariants(inputData)
+  }
+  const handleDeletePromotional = (i: any) => {
+    const inputData = [...variants]
+    inputData[i].promotional = null;
     setVariants(inputData)
   }
   const handleChangeStock = (onChangeValue: any, i: any) => {
@@ -95,7 +100,7 @@ const ProductForm = () => {
         />
       </InputWrapper>
       <RadioButtons>
-        <RadioInput type="radio" name="size" id="big" checked={!variant} onClick={() => {setVariant(false); handleUnicName()}} />
+        <RadioInput type="radio" name="size" id="big" checked={!variant} onClick={() => { setVariant(false); handleUnicName() }} />
         <RadioLabel htmlFor="big">Produto sem variante</RadioLabel>
 
         <RadioInput type="radio" name="size" id="small" checked={variant} onClick={() => setVariant(true)} />
@@ -142,7 +147,7 @@ const ProductForm = () => {
                 <label htmlFor={`promo${i}`} style={{ fontSize: 12 }}>Definir preço promocional</label>
               </div>
               <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 4, alignSelf: 'flex-start' }} >
-                <input type="radio" id={`noPromo${i}`} checked={!promoPrice.includes(i)} name={`promo${i}`} onClick={() => { setPromoPrice(promoPrice.filter((item: { item: any }) => item != i)) }} />
+                <input type="radio" id={`noPromo${i}`} checked={!promoPrice.includes(i)} name={`promo${i}`} onClick={() => { setPromoPrice(promoPrice.filter((item: { item: any }) => item != i)); handleDeletePromotional(i) }} />
                 <label htmlFor={`noPromo${i}`} style={{ fontSize: 12 }}>Não definir preço promocional</label>
               </div>
             </div>
