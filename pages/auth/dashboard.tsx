@@ -1,9 +1,9 @@
 import GeneralInfo from "@/components/Dashboard/GeneralInfo";
-import OrdersList from "@/components/Dashboard/OrdersList";
+import OrdersTable from "@/components/Dashboard/OrdersTable";
 import ProductsList from "@/components/Dashboard/ProductsList";
 import fireDB from "@/firebase/initFirebase";
 import Layout from "@/layout";
-import { Order, Product } from "@/types/productType";
+import { Order, Product, Variant } from "@/types/productType";
 import { collection, getDocs } from "firebase/firestore";
 import styled from "styled-components";
 
@@ -45,15 +45,25 @@ export default function DashboardPage({ products, orders } : {products : Product
   
     return productName
   }
+  const getVariantName = (productId: string, variantId: string) => {
+    const product = products.filter((product: any) => product.id == productId)
+    const productVariants = (product[0].variants)
+
+    const variant = productVariants.filter((variant : Variant) => variant.id == variantId)
+    if (variant.length > 0) {
+      const variantName = variant[0].name 
+      return variantName
+    } else {
+      return "??"
+    }
+  }
   
   return ( 
     <Layout>
       <Section>
         <GeneralInfo orders={orders} />
-        <Wrapper>
-          <OrdersList orders={orders} getProductName={getProductName} />
-          <ProductsList products={products} />
-        </Wrapper>
+        <ProductsList products={products} />
+        <OrdersTable orders={orders} getProductName={getProductName} getVariantName={getVariantName} />
       </Section>
     </Layout>
    );
@@ -72,11 +82,4 @@ const Section = styled.section`
   gap: 16px;
   justify-content: center;
   align-items: center;
-`
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 16px;
-  width: 100%;
-  max-width: 1080px;
 `

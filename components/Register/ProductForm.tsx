@@ -109,7 +109,7 @@ const ProductForm = () => {
 
       {variants.map((data: any, i: any) => {
         return (
-          <div key={i}>
+          <div key={i} style={{width: '100%'}}>
             <InputDoubleWrapper>
               {(variant) ? (
                 <InputWrapper>
@@ -139,7 +139,7 @@ const ProductForm = () => {
                   value={data.stock} onChange={e => handleChangeStock(e, i)}
                 />
               </InputWrapper>
-              <button onClick={() => handleDelete(i)}>x</button>
+              <button disabled={variants.length <= 1} onClick={() => handleDelete(i)}>x</button>
             </InputDoubleWrapper>
             <div style={{ width: '50%', display: 'flex', flexDirection: 'row', alignItems: 'center', alignSelf: 'flex-start', gap: 24, paddingLeft: 8 }} >
               <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 4, alignSelf: 'flex-start' }} >

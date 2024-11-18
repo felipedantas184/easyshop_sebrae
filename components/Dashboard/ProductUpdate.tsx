@@ -2,6 +2,7 @@ import fireDB from "@/firebase/initFirebase";
 import { NewProduct, Product, Variant } from "@/types/productType";
 import { doc, updateDoc } from "firebase/firestore";
 import { useState } from "react";
+import { FaTrash } from "react-icons/fa6";
 import styled from "styled-components";
 import { v4 } from "uuid";
 
@@ -100,6 +101,10 @@ const ProductUpdate = ({ product, setSelectedProduct }: { product: Product, setS
       </InputWrapper>
       {(variants.map((variant: Variant, i: any) => (
         <VariantWrapper key={variant.id} >
+          <SpaceBetween>
+            <Label style={{alignSelf: 'flex-start', fontWeight: 600}} >Variant {i+1}</Label>
+            <FaTrash size={16} color="#F1AAAA" onClick={() => handleDelete(i)} /> 
+          </SpaceBetween>
           <InputDoubleWrapper>
             <InputWrapper>
               <Label>Nome</Label>
@@ -127,11 +132,12 @@ const ProductUpdate = ({ product, setSelectedProduct }: { product: Product, setS
               <button onClick={() => { setPromoPrice([...promoPrice, variant.id]) }}>Adicionar Promoção</button>
             </>)}
           </InputDoubleWrapper>
-          <DeleteVaritantButton onClick={() => handleDelete(i)}>Deletar variante</DeleteVaritantButton>
         </VariantWrapper>
       )))}
-      <UpdateButton onClick={(e) => handleAdd(e)}>Adiconar variante</UpdateButton>
-      <UpdateButton onClick={() => updateData(product)}>Atualizar Produto</UpdateButton>
+      <SpaceBetween>
+        <AddVariantButton onClick={(e) => handleAdd(e)}>Adiconar variante</AddVariantButton>
+        <UpdateButton onClick={() => updateData(product)}>Atualizar Produto</UpdateButton>
+      </SpaceBetween>
     </UpdateWrapper>
   );
 }
@@ -156,6 +162,14 @@ const InputWrapper = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: 4px;
+`
+const SpaceBetween = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
 `
 const Label = styled.label`
   color: #13131A;
@@ -217,12 +231,12 @@ const VariantWrapper = styled.div`
   border-bottom: 1px dotted gray;
   border-radius: 4px;
 `
-const DeleteVaritantButton = styled.button`
+const AddVariantButton = styled.button`
   width: 100%;
   margin: 0;
   padding: 8px;
 
-  background-color: #cc4101;
+  background-color: #2694A7;
   background-clip: padding-box;
 
   border: none;

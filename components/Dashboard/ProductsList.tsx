@@ -12,7 +12,7 @@ const ProductsList = ({ products }: { products: Product[] }) => {
     <Wrapper>
       <Title>Produtos</Title>
       {products.map((product: Product) => (
-        <div key={product.id}>
+        <div key={product.id} style={{width: '100%'}} >
           <ProductsCard product={product} selectedProduct={selectedProduct} setSelectedProduct={setSelectedProduct} />
           {(product.id === selectedProduct) ? (
             <ProductUpdate product={product} setSelectedProduct={setSelectedProduct} />
