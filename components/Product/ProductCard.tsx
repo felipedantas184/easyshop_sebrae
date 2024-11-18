@@ -109,7 +109,7 @@ const ViewProductButton = styled(Link)`
 
   color: #fff;
   font-family: "Montserrat";
-  font-size: 16px;
+  font-size: 13px;
   font-weight: 600;
   line-height: 1.25;
   text-decoration: none;

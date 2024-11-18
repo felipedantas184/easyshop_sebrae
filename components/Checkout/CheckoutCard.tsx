@@ -16,7 +16,7 @@ const CheckoutCard = ({product} : {product : CartItem}) => {
       </ImageWrapper>
       <TextWrapper style={{ flex: 2 }} >
         <Brand>{product.brand}</Brand>
-        <Title>{product.title}</Title>
+        <Title>{product.title} - {product.selectedVariant.name}</Title>
         <Price>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(product.price)}</Price>
         <Buttons>
           <QntButton onClick={() => dispatch(decrementQuantity(product.id))}><FaMinusCircle size={16} color='#13131A' /></QntButton>

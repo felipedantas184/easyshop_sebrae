@@ -2,7 +2,7 @@ type Variant = {
   id: string,
   name: string,
   price: number,
-  promotional?: number,
+  promotional: number,
   stock: number
 }
 

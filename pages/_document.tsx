@@ -35,6 +35,15 @@ export default class MyDocument extends Document {
           <meta charSet="utf-8" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+          <link rel="icon" type="image/png" href="/assets/images/logo/favicon-96x96.png" sizes="96x96" />
+          <link rel="icon" type="image/svg+xml" href="/assets/images/logo/favicon.svg" />
+          <link rel="shortcut icon" href="/assets/images/logo/favicon.ico" />
+          <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/logo/apple-touch-icon.png" />
+          <meta name="apple-mobile-web-app-title" content="Easy Phone" />
+          <link rel="manifest" href="/assets/images/logo/site.webmanifest" />
+
+          <meta name="theme-color" content="#2694A7" />
         </Head>
         <body>
           <Main />

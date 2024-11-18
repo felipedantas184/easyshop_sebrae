@@ -40,11 +40,20 @@ const ProductDetail = ({ product }: { product: Product }) => {
                 {product.variants.map((variant: Variant, i: any) => (
                   <div key={i}>
                     <RadioInput type="radio" checked={(variant === selectedVariant)} name="brand" id={variant.name} />
-                    <RadioLabel onClick={() => { setSelectedVariant(variant); setSelectedProduct({ ...selectedProduct, selectedVariant: {id: variant.id, name: variant.name, stock: variant.stock }, price: variant.promotional ?  variant.promotional : variant.price }) }} htmlFor={variant.name}>{variant.name}</RadioLabel>
+                    <RadioLabel onClick={() => { setSelectedVariant(variant); setSelectedProduct({ ...selectedProduct, selectedVariant: { id: variant.id, name: variant.name, stock: variant.stock }, price: variant.promotional ? variant.promotional : variant.price }) }} htmlFor={variant.name}>{variant.name}</RadioLabel>
                   </div>
                 ))}
               </BrandWrapper>
-              <Price>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(selectedVariant.price)}</Price>
+              <PriceWrapper>
+                {(selectedVariant.promotional) ? (
+                  <>
+                    <OldPrice>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(selectedVariant.price)}</OldPrice>
+                    <Promotional>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(selectedVariant.promotional)}</Promotional>
+                  </>
+                ) : (
+                  <Price>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(selectedVariant.price)}</Price>
+                )}
+              </PriceWrapper>
             </TextWrapper>
             <DetailButton product={selectedProduct} />
           </BigWrapper>
@@ -195,7 +204,24 @@ const Title = styled.h2`
   font-size: 16px;
   font-weight: 600;
 `
+const PriceWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 8px;
+`
 const Price = styled.h4`
+  color: #13131A;
+  font-size: 18px;
+  font-weight: 500;
+`
+const OldPrice = styled.h4`
+  color: #9c2305;
+  font-size: 18px;
+  font-weight: 500;
+  text-decoration: line-through;
+`
+const Promotional = styled.h4`
   color: #13131A;
   font-size: 18px;
   font-weight: 500;

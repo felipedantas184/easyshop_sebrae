@@ -11,7 +11,7 @@ const OrderCard = ({ product }: { product: CartItem }) => {
       </ImageWrapper>
       <TextWrapper style={{ flex: 2 }} >
         <Brand>{product.brand}</Brand>
-        <Title>{product.title}</Title>
+        <Title>{product.title} - {product.selectedVariant.name}</Title>
       </TextWrapper>
       <TopicWrapper>
         <Quantity>Qntd.: {product.quantity}</Quantity>
