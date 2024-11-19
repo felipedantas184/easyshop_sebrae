@@ -10,7 +10,7 @@ const Navbar = ({toggle, toggleCart} : any) => {
     <Container>
       <Wrapper>
         <FaBars style={{cursor: "pointer"}} color="#F6F6F6" size={24} onClick={toggle} />
-        <Logo href={'/'} ><Image src={'/assets/images/img/EasyPhoneLogoWhiteTransparent.png'} alt='ADUFPI Logo' fill /></Logo>
+        <Logo href={'/'} ><Image src={'/assets/images/img/EasyPhoneLogoWhiteTransparent.png'} alt='Easy Phone Logo' fill /></Logo>
         <Bag>
           <FaBagShopping color="#F6F6F6" size={24} onClick={toggleCart}></FaBagShopping>
           <Badge>{cart.reduce((acc:any, curr:any) => acc + curr.quantity, 0)}</Badge>
