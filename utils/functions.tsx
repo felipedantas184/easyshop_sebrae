@@ -59,7 +59,7 @@ export const addProduct = async (imageUpload: any, newProduct: NewProduct, varia
       })
     })
     alert("Produto adicionado com sucesso!")
-    router.push({ pathname: '/' })
+    router.push({ pathname: '/auth/register' })
   } catch (error) {
     alert(error)
   }

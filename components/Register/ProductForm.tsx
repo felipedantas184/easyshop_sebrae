@@ -71,8 +71,6 @@ const ProductForm = () => {
     setVariants(inputData)
   }
 
-  console.log(variants)
-
   return (
     <Form onSubmit={handleNewProduct}>
       <InputWrapper>

@@ -10,7 +10,7 @@ const Sidebar = ({ isOpen, toggle }: any) => {
       <Wrapper>
         <BigWrapper>
           <TitleWrapper>
-            <Logo href={'/'} ><Image src={'/vercel.svg'} alt='ADUFPI Logo' fill /></Logo>
+            <Logo href={'/'} ><Image src={'/assets/images/img/EasyPhoneLogoTransparent.png'} alt='ADUFPI Logo' fill /></Logo>
             <Close onClick={toggle}>
               <FaTimes color="#13131A" />
             </Close>

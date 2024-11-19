@@ -53,7 +53,7 @@ export const TitleWrapper = styled.div`
 export const Logo = styled(Link)`
   position: relative;
   width: 150px;
-  height: 44px;
+  height: 75px;
   text-decoration: none;
   cursor: pointer;
 

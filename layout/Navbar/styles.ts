@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styled from "styled-components";
 
 export const Container = styled.header`
@@ -19,6 +20,16 @@ export const Wrapper = styled.div`
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
+`
+export const Logo = styled(Link)`
+  position: relative;
+  width: 80px;
+  height: 40px;
+  text-decoration: none;
+  cursor: pointer;
+
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-tap-highlight-color: transparent; 
 `
 export const Bag = styled.div`
   padding: 8px;

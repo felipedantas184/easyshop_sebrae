@@ -7,7 +7,7 @@ const Footer = () => {
     <Container>
       <Wrapper>
         <LogoWrapper>
-          <Image src={'/vercel.svg'} alt={'Logo'} fill className={'image'} />
+          <Image src={'/assets/images/img/EasyPhoneLogoWhiteTransparent.png'} alt={'Logo'} fill className={'image'} />
         </LogoWrapper>
         <Grid>
           <TextWrapper>
