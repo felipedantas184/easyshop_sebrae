@@ -5,7 +5,7 @@ const CheckoutResume = ({cart}:any) => {
     <>
       <TopicWrapper>
         <Topic>Frete</Topic>
-        <Span>A combinar</Span>
+        <Span>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(0)}</Span>
       </TopicWrapper>
       <TopicWrapper>
         <Topic>Total de itens</Topic>

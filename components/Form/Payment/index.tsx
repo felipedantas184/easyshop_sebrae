@@ -6,9 +6,7 @@ const Payment = ({paymentMethod, setPaymentMethod}: any) => {
       <Label>Forma de Pagamento</Label>
       <Select onChange={(e) => setPaymentMethod(e.target.value)} value={paymentMethod} required>
         <Option value={''} hidden >Escolha um método</Option>
-        <Option value={'Pix - A combinar'} >Pagar com Pix</Option>
-        <Option value={'Cartão de Crédito - A combinar'}>Cartão de Crédito</Option>
-        <Option value={'Cartão de Débito - A combinar'}>Cartão de Débito</Option>
+        <Option value={'Pix'} >Pagar com Pix</Option>
       </Select>
     </InputWrapper>
   );

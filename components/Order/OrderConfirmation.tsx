@@ -1,13 +1,13 @@
 import { QrCodePix } from "@/utils/GenerateQRCode";
 import { QRCodeSVG } from "qrcode.react";
-import Link from "next/link";
-import { FaArrowLeft, FaHourglassHalf } from "react-icons/fa6";
+import { FaClipboard, FaHourglassHalf } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 const OrderConfirmation = () => {
   const order = useSelector((state: any) => state.order);
 
+  {/**
   const personalMessageComposure = "```" + order?.lastOrder?.personal.name + '%0A' + order?.lastOrder?.personal.email + '%0A' + order?.lastOrder?.personal.phone + "```"
   const deliveryMessageComposure = (order?.lastOrder?.deliveryType === "pickup") ? '```Reirada na loja```' : "```" + order?.lastOrder?.delivery.address + ', ' + order?.lastOrder?.delivery.number + ' - ' + order?.lastOrder?.delivery.complement + '%0A' + order?.lastOrder?.delivery.zipCode + '%0A' + order?.lastOrder?.delivery.city + ', ' + order?.lastOrder?.delivery.state + "```"
   const paymentMessageComposure = "```" + order?.lastOrder?.paymentMethod + "```"
@@ -16,7 +16,8 @@ const OrderConfirmation = () => {
   }, '')
 
   const message = `📄 *RESUMO DA COMPRA*%0A_${order?.lastOrder.id}_%0A%0A----------------------------------------------%0A👤 *Informações do Cliente:*%0A${personalMessageComposure}%0A%0A----------------------------------------------%0A🚛 *Informações da Entrega:*%0A${deliveryMessageComposure}%0A%0A----------------------------------------------%0A📃 *Informações do Pedido:*%0A${cartMessageComposure}%0A%0A----------------------------------------------%0A💳 *Forma do Pagamento:*%0A${paymentMessageComposure}%0A%0A----------------------------------------------%0A%0A💵 *Total a Pagar:*%0A${Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(order?.lastOrder?.cart.reduce((acc: any, curr: any) => acc + curr.price * curr.quantity, 0))}`
-
+  */}
+  
   const qrCodePix = QrCodePix({
     version: '01',
     key: '05620204383', //or any PIX key
@@ -30,14 +31,10 @@ const OrderConfirmation = () => {
 
   return (
     <Wrapper>
-      <BackWrapper href={'/'} >
-        <FaArrowLeft size={16} color="#13131A" />
-        <Subtitle>Página inicial</Subtitle>
-      </BackWrapper>
       <TextWrapper>
         <FaHourglassHalf size={48} color="#a07c08" />
         <Title>Falta Pouco!<br /> Efetue o pagamento para confirmar o pedido!</Title>
-        <Subtitle>Leia o QR Code para efetuar o pagamento.<br/>A confirmação do seu pedido pode levar algum tempo.</Subtitle>
+        <Subtitle style={{textAlign: 'center'}} >Leia o QR Code para efetuar o pagamento.<br/>A confirmação do seu pedido pode levar algum tempo.</Subtitle>
         <QRCodeSVG
           value={qrCodePix.payload()}
           size={210}
@@ -45,7 +42,10 @@ const OrderConfirmation = () => {
           fgColor={'#000000'}
           level={'L'}
         />
-        <CheckoutButton href={`https://wa.me//5586995185757?text=${message}`}>Enviar Pedido</CheckoutButton>
+        <QrCodeString>
+          <Subtitle>{qrCodePix.payload()}<FaClipboard style={{cursor: 'pointer', marginLeft: 16}} size={16} onClick={() => navigator.clipboard.writeText(qrCodePix.payload())} /></Subtitle>
+        </QrCodeString>
+        {/**<CheckoutButton href={`https://wa.me//5586995185757?text=${message}`}>Enviar Pedido</CheckoutButton>*/}
       </TextWrapper>
     </Wrapper>
   );
@@ -72,15 +72,6 @@ export const Wrapper = styled.div`
     padding: 0 8px;
   }
 `
-export const BackWrapper = styled(Link)`
-  align-self: flex-start;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 4px;
-  margin-bottom: 8px;
-`
 export const TextWrapper = styled.div`
   width: 100%;
   padding: 16px 12px;
@@ -100,11 +91,23 @@ export const Title = styled.h1`
   font-weight: 600;
   text-align: center;
 `
-export const Subtitle = styled.h3`
+export const Subtitle = styled.span`
   color: #5A5A5A;
   font-size: 14px;
-  text-align: center;
   font-weight: 500;
+`
+export const QrCodeString = styled.div`
+  padding: 8px;
+  width: 100%;
+  background-color: lightgray;
+  word-break: break-all;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  text-overflow: ellipsis;
 `
 export const CheckoutButton = styled.a`
   width: 100%;

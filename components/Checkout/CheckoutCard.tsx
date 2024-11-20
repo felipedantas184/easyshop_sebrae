@@ -14,14 +14,14 @@ const CheckoutCard = ({product} : {product : CartItem}) => {
       <ImageWrapper href={'/'}>
         <Image src={product.imageUrl[0]} alt={product.title} fill className={'image'} sizes="(max-width: 384px)" />
       </ImageWrapper>
-      <TextWrapper style={{ flex: 2 }} >
+      <TextWrapper>
         <Brand>{product.brand}</Brand>
         <Title>{product.title} - {product.selectedVariant.name}</Title>
         <Price>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(product.price)}</Price>
         <Buttons>
-          <QntButton onClick={() => dispatch(decrementQuantity(product.id))}><FaMinusCircle size={16} color='#13131A' /></QntButton>
+          <QntButton onClick={() => dispatch(decrementQuantity(product))}><FaMinusCircle size={16} color='#13131A' /></QntButton>
           <p>{product.quantity}</p>
-          <QntButton disabled={product.quantity >= product.selectedVariant.stock} onClick={() => dispatch(incrementQuantity(product.id))}><FaPlusCircle size={16} color={(product.quantity >= product.selectedVariant.stock) ? '$D4D4D4' : '#13131A'} /></QntButton>
+          <QntButton disabled={product.quantity >= product.selectedVariant.stock} onClick={() => dispatch(incrementQuantity(product))}><FaPlusCircle size={16} color={(product.quantity >= product.selectedVariant.stock) ? '$D4D4D4' : '#13131A'} /></QntButton>
         </Buttons>
       </TextWrapper>
     </Card>
@@ -42,9 +42,8 @@ const Card = styled.div`
  gap: 16px;
 `
 const ImageWrapper = styled(Link)`
-  flex: 1;
   position: relative;
-  width: 100%;
+  width: 100px;
 
   display: flex;
   justify-content: center;

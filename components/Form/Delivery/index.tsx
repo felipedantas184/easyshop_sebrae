@@ -37,7 +37,7 @@ const Delivery = ({ delivery, setDelivery }: { delivery: Delivery, setDelivery: 
 
       <InputWrapper>
         <Label>Endereço</Label>
-        <Input type='text' placeholder="Ex: Avenida Rio Poty" required
+        <Input type='text' placeholder="Ex: Avenida Rio Poty" required disabled
           value={delivery.address} onChange={(e: any) => setDelivery({ ...delivery, address: e.target.value })}
         />
       </InputWrapper>
@@ -45,7 +45,7 @@ const Delivery = ({ delivery, setDelivery }: { delivery: Delivery, setDelivery: 
       <InputDoubleWrapper>
         <InputWrapper>
           <Label>Bairro</Label>
-          <Input type='text' placeholder="Ex: Horto Florestal" required
+          <Input type='text' placeholder="Ex: Horto Florestal" required disabled
             value={delivery.district} onChange={(e: any) => setDelivery({ ...delivery, district: e.target.value })}
           />
         </InputWrapper>
@@ -67,13 +67,13 @@ const Delivery = ({ delivery, setDelivery }: { delivery: Delivery, setDelivery: 
       <InputDoubleWrapper>
         <InputWrapper>
           <Label>Cidade</Label>
-          <Input type='text' placeholder="Digite sua cidade" required
+          <Input type='text' placeholder="Digite sua cidade" required disabled
             value={delivery.city} onChange={(e: any) => setDelivery({ ...delivery, city: e.target.value })}
           />
         </InputWrapper>
         <InputWrapper>
           <Label>Estado</Label>
-          <Input type='text' placeholder="Digite seu estado" required
+          <Input type='text' placeholder="Digite seu estado" required disabled
             value={delivery.state} onChange={(e: any) => setDelivery({ ...delivery, state: e.target.value })}
           />
         </InputWrapper>

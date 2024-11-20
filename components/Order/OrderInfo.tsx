@@ -28,10 +28,12 @@ const OrderInfo = () => {
               <Topic>CEP</Topic>
               <Span>{order?.lastOrder?.delivery.zipCode.replace(/(\d{5})(\d{3})/, '$1-$2')}</Span>
             </InfoWrapper>
-            <InfoWrapper>
+            {(order?.lastOrder?.delivery.complement) ? (
+              <InfoWrapper>
               <Topic>Complemento</Topic>
               <Span>{order?.lastOrder?.delivery.complement}</Span>
             </InfoWrapper>
+            ) : (<></>)}
           </>
         )}
       </Summary>
