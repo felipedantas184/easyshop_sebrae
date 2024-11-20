@@ -101,5 +101,6 @@ export type {
   NewProduct,
   CartItem,
   Order,
+  OrderCart,
   Variant
 }

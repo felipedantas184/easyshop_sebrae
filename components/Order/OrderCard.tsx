@@ -1,21 +1,20 @@
-import { CartItem } from "@/types/productType";
 import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
 
-const OrderCard = ({ product }: { product: CartItem }) => {
+const OrderCard = ({ item }: { item: any }) => {
   return (
     <Product>
       <ImageWrapper href={'/'}>
-        <Image src={product.imageUrl[0]} alt={product.title} fill className={'image'} sizes="(max-width: 384px)" />
+        <Image src={item.product.imageUrl[0]} alt={item.product.title} fill className={'image'} sizes="(max-width: 384px)" />
       </ImageWrapper>
       <TextWrapper style={{ flex: 2 }} >
-        <Brand>{product.brand}</Brand>
-        <Title>{product.title} - {product.selectedVariant.name}</Title>
+        <Brand>{item.product.brand}</Brand>
+        <Title>{item.product.title} - {item.variantName}</Title>
       </TextWrapper>
       <TopicWrapper>
-        <Quantity>Qntd.: {product.quantity}</Quantity>
-        <Price>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(product.price)}</Price>
+        <Quantity>Qntd.: {item.quantity}</Quantity>
+        <Price>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(item.price)}</Price>
       </TopicWrapper>
     </Product>
   );

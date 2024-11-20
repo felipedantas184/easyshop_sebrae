@@ -1,15 +1,14 @@
+import { Order } from "@/types/productType";
 import { FaCreditCard, FaPix } from "react-icons/fa6";
-import { useSelector } from "react-redux";
 import styled from "styled-components";
 
-const OrderInfo = () => {
-  const order = useSelector((state: any) => state.order);
+const OrderInfo = ({ order }: { order: Order }) => {
 
   return (
     <Wrapper>
       <Summary>
         <SummaryTitle>Resumo da Entrega</SummaryTitle>
-        {(order?.lastOrder !== null && order?.lastOrder?.deliveryType === "pickup") ? (
+        {(order.deliveryType === "pickup") ? (
           <InfoWrapper>
             <Topic>Retirada na Loja</Topic>
             <Span>Clique para ver a localização da Loja</Span>
@@ -18,20 +17,20 @@ const OrderInfo = () => {
           <>
             <InfoWrapper>
               <Topic>Cidade</Topic>
-              <Span>{order?.lastOrder?.delivery.city} - {order?.lastOrder?.delivery.state}</Span>
+              <Span>{order.delivery?.city} - {order.delivery?.state}</Span>
             </InfoWrapper>
             <InfoWrapper>
               <Topic>Endereço</Topic>
-              <Span>{order?.lastOrder?.delivery.address}, {order?.lastOrder?.delivery.number} - {order?.lastOrder?.delivery.district}</Span>
+              <Span>{order.delivery?.address}, {order.delivery?.number} - {order.delivery?.district}</Span>
             </InfoWrapper>
             <InfoWrapper>
               <Topic>CEP</Topic>
-              <Span>{order?.lastOrder?.delivery.zipCode.replace(/(\d{5})(\d{3})/, '$1-$2')}</Span>
+              <Span>{order.delivery?.zipCode.replace(/(\d{5})(\d{3})/, '$1-$2')}</Span>
             </InfoWrapper>
-            {(order?.lastOrder?.delivery.complement) ? (
+            {(order.delivery?.complement) ? (
               <InfoWrapper>
               <Topic>Complemento</Topic>
-              <Span>{order?.lastOrder?.delivery.complement}</Span>
+              <Span>{order.delivery?.complement}</Span>
             </InfoWrapper>
             ) : (<></>)}
           </>
@@ -40,12 +39,12 @@ const OrderInfo = () => {
       <Summary>
         <SummaryTitle>Resumo do Pagamento</SummaryTitle>
         <PaymentWrapper>
-          {(order?.lastOrder?.paymentMethod === 'Pix - A combinar') ? (
+          {(order.paymentMethod === 'Pix - A combinar') ? (
             <FaPix size={32} color="#32BCAD" />
           ) : (
             <FaCreditCard size={24} color="#32BCAD" />
           )}
-          <Span>{order?.lastOrder?.paymentMethod}</Span>
+          <Span>{order.paymentMethod}</Span>
         </PaymentWrapper>
       </Summary>
     </Wrapper>

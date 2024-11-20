@@ -1,21 +1,19 @@
+import { Order } from "@/types/productType";
 import { QrCodePix } from "@/utils/GenerateQRCode";
 import { QRCodeSVG } from "qrcode.react";
 import { FaClipboard, FaHourglassHalf } from "react-icons/fa6";
-import { useSelector } from "react-redux";
 import styled from "styled-components";
 
-const OrderConfirmation = () => {
-  const order = useSelector((state: any) => state.order);
-
+const OrderConfirmation = ({ order }: { order: Order }) => {
   {/**
-  const personalMessageComposure = "```" + order?.lastOrder?.personal.name + '%0A' + order?.lastOrder?.personal.email + '%0A' + order?.lastOrder?.personal.phone + "```"
-  const deliveryMessageComposure = (order?.lastOrder?.deliveryType === "pickup") ? '```Reirada na loja```' : "```" + order?.lastOrder?.delivery.address + ', ' + order?.lastOrder?.delivery.number + ' - ' + order?.lastOrder?.delivery.complement + '%0A' + order?.lastOrder?.delivery.zipCode + '%0A' + order?.lastOrder?.delivery.city + ', ' + order?.lastOrder?.delivery.state + "```"
-  const paymentMessageComposure = "```" + order?.lastOrder?.paymentMethod + "```"
-  const cartMessageComposure = order?.lastOrder?.cart.reduce(function (prevVal: any, currVal: any, idx: any) {
+  const personalMessageComposure = "```" + order.personal.name + '%0A' + order.personal.email + '%0A' + order.personal.phone + "```"
+  const deliveryMessageComposure = (order.deliveryType === "pickup") ? '```Reirada na loja```' : "```" + order.delivery.address + ', ' + order.delivery.number + ' - ' + order.delivery.complement + '%0A' + order.delivery.zipCode + '%0A' + order.delivery.city + ', ' + order.delivery.state + "```"
+  const paymentMessageComposure = "```" + order.paymentMethod + "```"
+  const cartMessageComposure = order.cart.reduce(function (prevVal: any, currVal: any, idx: any) {
     return idx == 0 ? Number(idx + 1) + '. ' + "```" + currVal.title + ` (x${currVal.quantity})` + "```" + `%0A${Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(currVal.price * currVal.quantity)}` : prevVal + '%0A%0A' + Number(idx + 1) + '. ' + "```" + currVal.title + ` (x${currVal.quantity})` + "```" + `%0A${Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(currVal.price * currVal.quantity)}`;
   }, '')
 
-  const message = `📄 *RESUMO DA COMPRA*%0A_${order?.lastOrder.id}_%0A%0A----------------------------------------------%0A👤 *Informações do Cliente:*%0A${personalMessageComposure}%0A%0A----------------------------------------------%0A🚛 *Informações da Entrega:*%0A${deliveryMessageComposure}%0A%0A----------------------------------------------%0A📃 *Informações do Pedido:*%0A${cartMessageComposure}%0A%0A----------------------------------------------%0A💳 *Forma do Pagamento:*%0A${paymentMessageComposure}%0A%0A----------------------------------------------%0A%0A💵 *Total a Pagar:*%0A${Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(order?.lastOrder?.cart.reduce((acc: any, curr: any) => acc + curr.price * curr.quantity, 0))}`
+  const message = `📄 *RESUMO DA COMPRA*%0A_${order?.lastOrder.id}_%0A%0A----------------------------------------------%0A👤 *Informações do Cliente:*%0A${personalMessageComposure}%0A%0A----------------------------------------------%0A🚛 *Informações da Entrega:*%0A${deliveryMessageComposure}%0A%0A----------------------------------------------%0A📃 *Informações do Pedido:*%0A${cartMessageComposure}%0A%0A----------------------------------------------%0A💳 *Forma do Pagamento:*%0A${paymentMessageComposure}%0A%0A----------------------------------------------%0A%0A💵 *Total a Pagar:*%0A${Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(order.cart.reduce((acc: any, curr: any) => acc + curr.price * curr.quantity, 0))}`
   */}
   
   const qrCodePix = QrCodePix({
@@ -23,10 +21,10 @@ const OrderConfirmation = () => {
     key: '05620204383', //or any PIX key
     name: 'Felipe Augusto Oliveira Dantas',
     city: 'Teresina',
-    transactionId: order?.lastOrder?.id,
-    message: `Compra na loja Tecdata. Código do pedido: ${order?.lastOrder?.id}`,
+    transactionId: order.id,
+    message: `Compra na loja Tecdata. Código do pedido: ${order.id}`,
     cep: '64091250',
-    value: order?.lastOrder?.amount,
+    value: order.amount,
   });
 
   return (
@@ -43,7 +41,8 @@ const OrderConfirmation = () => {
           level={'L'}
         />
         <QrCodeString>
-          <Subtitle>{qrCodePix.payload()}<FaClipboard style={{cursor: 'pointer', marginLeft: 16}} size={16} onClick={() => navigator.clipboard.writeText(qrCodePix.payload())} /></Subtitle>
+          <Subtitle>{qrCodePix.payload()}</Subtitle>
+          <Subtitle onClick={() => navigator.clipboard.writeText(qrCodePix.payload())} style={{alignSelf: 'flex-end' , color: '#13131A', cursor: 'pointer'}}>Clique aqui para copiar o código! <FaClipboard style={{cursor: 'pointer'}} size={16}/></Subtitle>
         </QrCodeString>
         {/**<CheckoutButton href={`https://wa.me//5586995185757?text=${message}`}>Enviar Pedido</CheckoutButton>*/}
       </TextWrapper>
@@ -98,6 +97,7 @@ export const Subtitle = styled.span`
 `
 export const QrCodeString = styled.div`
   padding: 8px;
+  border-radius: 8px;
   width: 100%;
   background-color: lightgray;
   word-break: break-all;

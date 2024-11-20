@@ -137,9 +137,9 @@ const ProductForm = () => {
                   value={data.stock} onChange={e => handleChangeStock(e, i)}
                 />
               </InputWrapper>
-              <button disabled={variants.length <= 1} onClick={() => handleDelete(i)}>x</button>
+              <DeleteVariantButton disabled={variants.length <= 1} onClick={() => handleDelete(i)}>x</DeleteVariantButton>
             </InputDoubleWrapper>
-            <div style={{ width: '50%', display: 'flex', flexDirection: 'row', alignItems: 'center', alignSelf: 'flex-start', gap: 24, paddingLeft: 8 }} >
+            <div style={{ width: '50%', display: 'flex', flexDirection: 'row', alignItems: 'center', alignSelf: 'flex-start', gap: 24, paddingLeft: 8, marginTop: 8 }} >
               <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 4, alignSelf: 'flex-start' }} >
                 <input type="radio" id={`promo${i}`} checked={promoPrice.includes(i)} name={`promo${i}`} onClick={() => { setPromoPrice([...promoPrice, i]) }} />
                 <label htmlFor={`promo${i}`} style={{ fontSize: 12 }}>Definir preço promocional</label>
@@ -268,6 +268,50 @@ const InputDoubleWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   gap: 8px;
+`
+const DeleteVariantButton = styled.button`
+  padding: 12px 8px;
+  align-self: flex-end;
+  background-color: #a72f26;
+  background-clip: padding-box;
+
+  border-radius: .25rem;
+  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+  box-sizing: border-box;
+
+  color: #fff;
+  font-family: "Montserrat";
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.25;
+  text-decoration: none;
+  cursor: pointer;
+
+  transition: all 250ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  -webkit-tap-highlight-color: transparent;
+
+  &:hover, &:focus {
+    background-color: #13131A;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+  }
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    background-color: #a72f26;
+    box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    background-color: grey;
+  }
 `
 const RegistertButton = styled.button`
   width: 100%;

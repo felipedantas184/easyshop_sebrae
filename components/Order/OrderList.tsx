@@ -1,22 +1,20 @@
 import styled from "styled-components";
 import OrderCard from "./OrderCard";
-import { useSelector } from "react-redux";
-import { CartItem } from "@/types/productType";
+import { Order, OrderCart } from "@/types/productType";
 
-const OrderList = () => {
-  const order = useSelector((state: any) => state.order);
+const OrderList = ({ order }: { order: Order }) => {
 
   return (
     <Wrapper>
       <Summary>
         <SummaryTitle>Resumo do Pedido</SummaryTitle>
-        {order?.lastOrder !== null ? (order?.lastOrder?.cart.map((product: CartItem) => (
-          <OrderCard key={product.id} product={product} />
-        ))) : (<></>)}
+        {order.cart.map((item : any) => (
+          <OrderCard key={item.variantId} item={item} />
+        ))}
         <Divider />
         <TopicWrapper>
           <TopicBold>Valor Total</TopicBold>
-          <SpanBold>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(order?.lastOrder !== null ? (order?.lastOrder?.amount) : (''))}</SpanBold>
+          <SpanBold>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(order.amount)}</SpanBold>
         </TopicWrapper>
       </Summary>
     </Wrapper>

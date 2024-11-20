@@ -38,6 +38,7 @@ const CheckoutForm = () => {
   })
   const [paymentMethod, setPaymentMethod] = useState('Pix');
   const [mesage, setMesage] = useState('');
+  const [orderId, setOrderId] = useState('');
   const cartOrder: any[] = []
 
   useEffect(() => {
@@ -111,6 +112,7 @@ const CheckoutForm = () => {
           amount: cart.reduce((acc: any, curr: any) => acc + curr.price * curr.quantity, 0),
           date: currentDate
         }))
+        setOrderId(docRef.id)
         localStorage.removeItem("wpp-catalog-cart")
         updateStockAfterPurchase(cart)
       }).then(
@@ -120,7 +122,7 @@ const CheckoutForm = () => {
       )
       alert("Pedido eviado com sucesso!")
 
-      router.push({ pathname: '/confirmation' })
+      router.push({ pathname: `orders/${orderId}` })
     } catch (error) {
       alert(error)
     }
