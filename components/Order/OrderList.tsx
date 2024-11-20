@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import OrderCard from "./OrderCard";
-import { Order, OrderCart } from "@/types/productType";
+import { Order } from "@/types/productType";
 
 const OrderList = ({ order }: { order: Order }) => {
 
