@@ -20,11 +20,12 @@ export const Wrapper = styled.div`
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
+  -webkit-tap-highlight-color: transparent;
 `
 export const Logo = styled(Link)`
   position: relative;
-  width: 80px;
-  height: 40px;
+  width: 100px;
+  height: 50px;
   text-decoration: none;
   cursor: pointer;
 

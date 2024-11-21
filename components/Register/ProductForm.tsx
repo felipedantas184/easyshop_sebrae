@@ -157,7 +157,7 @@ const ProductForm = () => {
       ) : (<></>)}
       <InputWrapper>
         <Label>Foto</Label>
-        <Input type='file' accept="image/*" required onChange={(e) => (setImageUpload(e.target.files))} multiple />
+        <Input type='file' accept="image/*" required onChange={(e) => (setImageUpload(e.target.files))} />
       </InputWrapper>
       <RegistertButton type="submit" >Adicionar Produto</RegistertButton>
     </Form>

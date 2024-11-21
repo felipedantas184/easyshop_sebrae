@@ -13,12 +13,11 @@ const Footer = () => {
           <TextWrapper>
             <Group>
               <FaTruck size={16} color="#F6F6F6" />
-              <Title>Entrega</Title>
+              <Title>Localização</Title>
             </Group>
             <List>
-              <ListItem>Retirada na loja</ListItem>
-              <ListItem>Entrega a domicílio</ListItem>
-              <ListItem>Frete a combinar</ListItem>
+              <ListItem>Retirada na Loja</ListItem>
+              <ListItem>Entrega a Domicílio</ListItem>
             </List>
           </TextWrapper>
           <TextWrapper>
@@ -39,13 +38,13 @@ const Footer = () => {
             </Group>
             <List>
               <SocialItem>
-                <a target='_blank' href='https://pt-br.facebook.com/adufpi/' arial-label='Instagram'><FaFacebook size={18} color={'#F6F6F6'} />Facebook</a>
+                <a target='_blank' href='https://www.instagram.com/easyshop.pi/' arial-label='Instagram'><FaFacebook size={18} color={'#F6F6F6'} />Facebook</a>
               </SocialItem>
               <SocialItem>
-                <a target='_blank' href='https://www.instagram.com/adufpi/' arial-label='Facebook'><FaInstagram size={18} color={'#F6F6F6'} />Instagram</a>
+                <a target='_blank' href='https://www.instagram.com/easyshop.pi/' arial-label='Facebook'><FaInstagram size={18} color={'#F6F6F6'} />Instagram</a>
               </SocialItem>
               <SocialItem>
-                <a target='_blank' href='mailto:secretaria@adufpi.org.br' arial-label='Email'><FaEnvelope size={18} color={'#F6F6F6'} />Email</a>
+                <a target='_blank' href='mailto:easyshop.piaui@gmail.com' arial-label='Email'><FaEnvelope size={18} color={'#F6F6F6'} />Email</a>
               </SocialItem>
             </List>
           </TextWrapper>

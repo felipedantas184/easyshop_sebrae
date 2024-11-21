@@ -69,6 +69,7 @@ export const TextWrapper = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: 8px;
+  align-self: flex-start;
 `
 export const Group = styled.div`
   display: flex;
@@ -94,7 +95,7 @@ export const ListItem = styled.li`
   &::after {
     display:block;
     content: '';
-    border-bottom: solid 2px #EB5757;  
+    border-bottom: solid 2px #22222A;  
     transform: scaleX(0);  
     transition: transform 250ms ease-in-out;
   }
@@ -119,7 +120,7 @@ export const SocialItem = styled.li`
   &::after {
     display:block;
     content: '';
-    border-bottom: solid 2px #EB5757;  
+    border-bottom: solid 2px #22222A;  
     transform: scaleX(0);  
     transition: transform 250ms ease-in-out;
   }
@@ -139,7 +140,7 @@ export const SocialItem = styled.li`
 export const Copyright = styled.div`
   background-color: #13131A;
   width: 100%;
-  padding: 16px 0;
+  padding: 12px 0;
 	margin-left: auto;
 	margin-right: auto;
 

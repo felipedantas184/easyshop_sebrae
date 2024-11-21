@@ -93,13 +93,13 @@ export const Item = styled.li`
   transition: 0.2s ease-in-out;
 
   &:hover {
-    color: #EB5757;
+    color: #2694A7;
     transition: 0.2s ease-in-out;
   }
   &::after {
     display:block;
     content: '';
-    border-bottom: solid 2px #EB5757;  
+    border-bottom: solid 2px #2694A7;  
     transform: scaleX(0);  
     transition: transform 250ms ease-in-out;
   }
@@ -107,7 +107,15 @@ export const Item = styled.li`
     transform: scaleX(1);
   }
 `
-export const PageLink = styled(Link)`
+export const PageLink = styled.a`
+  padding: 8px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Montserrat', sans-serif;
+`
+export const PageInternalLink = styled(Link)`
   padding: 8px;
   display: flex;
   flex-direction: row;
@@ -121,7 +129,7 @@ export const BWrap = styled.div`
   align-items: center;
   gap: 8px;
 `
-export const CheckoutButton = styled(Link)`
+export const CheckoutButton = styled.a`
   width: 100%;
   min-height: 3rem;
   margin: 0;

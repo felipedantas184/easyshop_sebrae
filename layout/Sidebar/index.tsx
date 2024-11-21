@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { FaTimes } from "react-icons/fa";
-import { Close, Container, Item, Logo, Menu, PageLink, CheckoutButton, Wrapper, TitleWrapper, BigWrapper } from "./styles";
-import { FaRegEnvelope, FaHouse, FaInstagram, FaLocationPin, FaWhatsapp } from "react-icons/fa6";
+import { Close, Container, Item, Logo, Menu, PageLink, CheckoutButton, Wrapper, TitleWrapper, BigWrapper, PageInternalLink } from "./styles";
+import { FaRegEnvelope, FaHouse, FaInstagram, FaWhatsapp, FaFacebook } from "react-icons/fa6";
 import { IoLocationOutline } from "react-icons/io5";
 
 const Sidebar = ({ isOpen, toggle }: any) => {
@@ -16,16 +16,14 @@ const Sidebar = ({ isOpen, toggle }: any) => {
             </Close>
           </TitleWrapper>
           <Menu>
-            <Item><PageLink href={'/'}><FaHouse size={20} color="#13131A" />Página Inicial</PageLink></Item>
-            <Item><PageLink href={'/bookings'}><FaInstagram size={20} color="#13131A" />Instagram</PageLink></Item>
-            <Item><PageLink href={'/profile'}><FaWhatsapp size={20} color="#13131A" />WhatsApp</PageLink></Item>
-            <Item><PageLink href={'/bookings'}><IoLocationOutline size={20} color="#13131A" />Localização</PageLink></Item>
-            <Item><PageLink href={'/profile'}><FaRegEnvelope size={20} color="#13131A" />Email</PageLink></Item>
+            <Item><PageInternalLink href={'/'}><FaHouse size={20} color="#13131A" />Página Inicial</PageInternalLink></Item>
+            <Item><PageLink target='_blank' href='https://www.instagram.com/easyshop.pi/' arial-label='Instagram'><FaInstagram size={20} color="#13131A" />Instagram</PageLink></Item>
+            <Item><PageLink target='_blank' href='https://www.instagram.com/easyshop.pi/' arial-label='Facebook'><FaFacebook size={20} color="#13131A" />Facebook</PageLink></Item>
+            <Item><PageLink target='_blank' href='https://maps.app.goo.gl/jPSt5QCpzHwX4ECd6' arial-label='Google Maps'><IoLocationOutline size={20} color="#13131A" />Localização</PageLink></Item>
+            <Item><PageLink target='_blank' href='mailto:easyshop.piaui@gmail.com' arial-label='Email'><FaRegEnvelope size={20} color="#13131A" />Email</PageLink></Item>
           </Menu>
         </BigWrapper>
-        <CheckoutButton href={'/'}>
-          <FaWhatsapp size={18} />
-          Mandar mensagem</CheckoutButton>
+        <CheckoutButton href={`https://wa.me//5586995185757?text=Ol%C3%A1!%20Tenho%20interesse%20em%20saber%20mais%20sobre%20a%20Easy%20Shop!`}><FaWhatsapp size={18} />Mandar mensagem</CheckoutButton>
       </Wrapper>
     </Container>
   );

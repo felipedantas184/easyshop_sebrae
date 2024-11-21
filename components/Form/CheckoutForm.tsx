@@ -38,8 +38,6 @@ const CheckoutForm = () => {
   })
   const [paymentMethod, setPaymentMethod] = useState('Pix');
   const [mesage, setMesage] = useState('');
-  const [orderId, setOrderId] = useState('');
-  const cartOrder: any[] = []
 
   useEffect(() => {
     const deliveryMesageComposure = '*_Informações da Entrega:_*%0A' + delivery.address + ', ' + delivery.number + ' - ' + delivery.complement + '%0A' + delivery.zipCode + '%0A' + delivery.city + ', ' + delivery.state
@@ -58,73 +56,60 @@ const CheckoutForm = () => {
 
   const handleOrder = async (e: any) => {
     e.preventDefault()
-    cart.forEach((item: CartItem) => {
-      const obj = {
-        productId: item.id,
-        variantId: item.selectedVariant.id,
-        variantName: item.selectedVariant.name,
-        quantity: item.quantity,
-        price: item.price
-      }
-      cartOrder.push(obj)
-    });
+    const cartOrder = cart.map((item: CartItem) => ({
+      productId: item.id,
+      variantId: item.selectedVariant.id,
+      variantName: item.selectedVariant.name,
+      quantity: item.quantity,
+      price: item.price,
+    }));
+
     try {
-      addDoc(collection(fireDB, "orders"), {
-        personal: personal,
+      const docRef = await addDoc(collection(fireDB, "orders"), {
+        personal,
         cart: cartOrder,
         delivery: pickUp ? null : delivery,
-        deliveryType: pickUp ? 'pickup' : 'delivery',
-        paymentMethod: paymentMethod,
-        amount: cart.reduce((acc: any, curr: any) => acc + curr.price * curr.quantity, 0),
-        timeStamp: currentDate
-      }).then(function (docRef) {
-        dispatch(addOrder({
-          id: docRef.id,
-          personal: personal,
-          cart: cart,
-          delivery: pickUp ? null : delivery,
-          deliveryType: pickUp ? 'pickup' : 'delivery',
-          paymentMethod: paymentMethod,
-          amount: cart.reduce((acc: any, curr: any) => acc + curr.price * curr.quantity, 0),
-          date: currentDate
-        }))
-        try {
-          sendOrderEmail({
-            id: docRef.id,
-            personal: personal,
-            cart: cart,
-            delivery: pickUp ? null : delivery,
-            deliveryType: pickUp ? 'pickup' : 'delivery',
-            paymentMethod: paymentMethod,
-            amount: cart.reduce((acc: any, curr: any) => acc + curr.price * curr.quantity, 0),
-            date: currentDate
-          })
-        } catch (error) {
-          alert(error)
-        }
-        localStorage.setItem("wpp-catalog-order", JSON.stringify({
-          id: docRef.id,
-          personal: personal,
-          cart: cart,
-          delivery: pickUp ? null : delivery,
-          deliveryType: pickUp ? 'pickup' : 'delivery',
-          paymentMethod: paymentMethod,
-          amount: cart.reduce((acc: any, curr: any) => acc + curr.price * curr.quantity, 0),
-          date: currentDate
-        }))
-        setOrderId(docRef.id)
-        localStorage.removeItem("wpp-catalog-cart")
-        updateStockAfterPurchase(cart)
-      }).then(
-        cart.map((item: any) => (
-          dispatch(removeFromCart(item))
-        ))
-      )
-      alert("Pedido eviado com sucesso!")
+        deliveryType: pickUp ? "pickup" : "delivery",
+        paymentMethod,
+        amount: cart.reduce((acc: number, curr: any) => acc + curr.price * curr.quantity, 0),
+        timeStamp: currentDate,
+      });
 
-      router.push({ pathname: `orders/${orderId}` })
+      const orderData = {
+        id: docRef.id,
+        personal,
+        cart,
+        delivery: pickUp ? null : delivery,
+        deliveryType: pickUp ? "pickup" : "delivery",
+        paymentMethod,
+        amount: cart.reduce(
+          (acc: number, curr: any) => acc + curr.price * curr.quantity,
+          0
+        ),
+        date: currentDate,
+      };
+
+      dispatch(addOrder(orderData));
+
+      try {
+        await sendOrderEmail(orderData);
+      } catch (error) {
+        console.error("Erro ao enviar e-mail:", error);
+        alert("Não foi possível enviar o e-mail de confirmação.");
+      }
+
+      localStorage.setItem("wpp-catalog-order", JSON.stringify(orderData));
+      localStorage.removeItem("wpp-catalog-cart");
+
+      await updateStockAfterPurchase(cart);
+
+      cart.forEach((item: any) => dispatch(removeFromCart(item)));
+
+      router.push(`/orders/${docRef.id}`);
+      alert("Pedido enviado com sucesso!");
     } catch (error) {
-      alert(error)
+      console.error("Erro ao processar o pedido:", error);
+      alert("Houve um erro ao processar seu pedido. Tente novamente.");    
     }
   }
 
