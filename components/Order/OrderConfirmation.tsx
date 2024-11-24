@@ -1,7 +1,8 @@
 import { Order } from "@/types/productType";
 import { QrCodePix } from "@/utils/GenerateQRCode";
 import { QRCodeSVG } from "qrcode.react";
-import { FaClipboard, FaHourglassHalf } from "react-icons/fa6";
+import { useState } from "react";
+import { FaClipboard, FaClipboardCheck, FaHourglassHalf } from "react-icons/fa6";
 import styled from "styled-components";
 
 const OrderConfirmation = ({ order }: { order: Order }) => {
@@ -15,6 +16,8 @@ const OrderConfirmation = ({ order }: { order: Order }) => {
 
   const message = `📄 *RESUMO DA COMPRA*%0A_${order?.lastOrder.id}_%0A%0A----------------------------------------------%0A👤 *Informações do Cliente:*%0A${personalMessageComposure}%0A%0A----------------------------------------------%0A🚛 *Informações da Entrega:*%0A${deliveryMessageComposure}%0A%0A----------------------------------------------%0A📃 *Informações do Pedido:*%0A${cartMessageComposure}%0A%0A----------------------------------------------%0A💳 *Forma do Pagamento:*%0A${paymentMessageComposure}%0A%0A----------------------------------------------%0A%0A💵 *Total a Pagar:*%0A${Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(order.cart.reduce((acc: any, curr: any) => acc + curr.price * curr.quantity, 0))}`
   */}
+
+  const [isCopied, setIsCopied] = useState(false);
   
   const qrCodePix = QrCodePix({
     version: '01',
@@ -42,7 +45,7 @@ const OrderConfirmation = ({ order }: { order: Order }) => {
         />
         <QrCodeString>
           <Subtitle>{qrCodePix.payload()}</Subtitle>
-          <Subtitle onClick={() => navigator.clipboard.writeText(qrCodePix.payload())} style={{alignSelf: 'flex-end' , color: '#13131A', cursor: 'pointer'}}>Clique aqui para copiar o código! <FaClipboard style={{cursor: 'pointer'}} size={16}/></Subtitle>
+          <Subtitle onClick={() => {navigator.clipboard.writeText(qrCodePix.payload()), setIsCopied(true)}} style={{alignSelf: 'flex-end' , color: '#13131A', cursor: 'pointer'}}>{(isCopied) ? 'Código copiado!' : 'Clique aqui para copiar o código!'} {(isCopied) ? <FaClipboardCheck style={{cursor: 'pointer'}} size={16}/> : <FaClipboard style={{cursor: 'pointer'}} size={16}/>}</Subtitle>
         </QrCodeString>
         {/**<CheckoutButton href={`https://wa.me//5586995185757?text=${message}`}>Enviar Pedido</CheckoutButton>*/}
       </TextWrapper>

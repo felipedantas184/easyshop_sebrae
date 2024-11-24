@@ -4,6 +4,8 @@ import styled from "styled-components";
 import DetailButton from "../Buttons/DetailButton";
 import ProductFeatures from "./ProductFeatures";
 import { useState } from "react";
+import { FaArrowLeft } from "react-icons/fa6";
+import Link from "next/link";
 
 const ProductDetail = ({ product }: { product: Product }) => {
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0])
@@ -26,6 +28,9 @@ const ProductDetail = ({ product }: { product: Product }) => {
     <>
       <Section>
         <Wrapper>
+          <Link href={'/'} style={{position: 'absolute', zIndex: 2, left: '16px', top: '16px', WebkitTapHighlightColor: 'transparent'}} >
+            <FaArrowLeft style={{backgroundColor: '#C4C4C450', borderRadius: '50%', padding: '2px'}}  size={20} color="#33333A" />
+          </Link>
           <ImageWrapper>
             <Image src={product.imageUrl[0]} alt={product.title} fill className={'image'} />
           </ImageWrapper>
@@ -86,6 +91,8 @@ const Wrapper = styled.div`
 	align-items: center;
 	justify-content: space-between;
   gap: 8px;
+
+  position: relative;
 
   @media screen and (max-width: 768px) {
     flex-direction: column;

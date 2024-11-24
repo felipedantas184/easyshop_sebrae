@@ -94,7 +94,7 @@ const Section = styled.section`
   justify-content: center;
   align-items: center;
 `
-export const BackWrapper = styled(Link)`
+const BackWrapper = styled(Link)`
   width: 1080px;
   margin-left: auto;
   margin-right: auto;
@@ -108,7 +108,7 @@ export const BackWrapper = styled(Link)`
   gap: 4px;
   margin-bottom: 8px;
 `
-export const Span = styled.span`
+const Span = styled.span`
   color: #5A5A5A;
   font-size: 14px;
   text-align: center;

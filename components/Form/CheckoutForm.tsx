@@ -27,6 +27,7 @@ const CheckoutForm = () => {
     cpf: '',
   })
   const [pickUp, setPickUp] = useState(true);
+  const [onLoad, setOnLoad] = useState(false);
   const [delivery, setDelivery] = useState({
     zipCode: '',
     address: '',
@@ -63,6 +64,7 @@ const CheckoutForm = () => {
       quantity: item.quantity,
       price: item.price,
     }));
+    setOnLoad(true)
 
     try {
       const docRef = await addDoc(collection(fireDB, "orders"), {
@@ -73,6 +75,7 @@ const CheckoutForm = () => {
         paymentMethod,
         amount: cart.reduce((acc: number, curr: any) => acc + curr.price * curr.quantity, 0),
         timeStamp: currentDate,
+        status: 'Pendente'
       });
 
       const orderData = {
@@ -82,11 +85,9 @@ const CheckoutForm = () => {
         delivery: pickUp ? null : delivery,
         deliveryType: pickUp ? "pickup" : "delivery",
         paymentMethod,
-        amount: cart.reduce(
-          (acc: number, curr: any) => acc + curr.price * curr.quantity,
-          0
-        ),
+        amount: cart.reduce((acc: number, curr: any) => acc + curr.price * curr.quantity, 0),
         date: currentDate,
+        status: 'Pendente'
       };
 
       dispatch(addOrder(orderData));
@@ -137,7 +138,7 @@ const CheckoutForm = () => {
         <Topic>Total</Topic>
         <Price>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(cart.reduce((acc: any, curr: any) => acc + curr.price * curr.quantity, 0))}</Price>
       </TopicWrapper>
-      <CheckoutButton type="submit" >Finalizar Pedido</CheckoutButton>
+      <CheckoutButton disabled={onLoad} type="submit" >{(onLoad) ? 'Processando Pedido...' : 'Finalizar Pedido'}</CheckoutButton>
       {/** <a href={`https://wa.me//5586995185757?text=${mesage}`}>Bora</a>*/}
     </Wrapper>
   );
@@ -241,6 +242,10 @@ const CheckoutButton = styled.button`
     background-color: #2694A7;
     box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
     transform: translateY(0);
+  }
+
+  &:disabled {
+    background-color: #545454;
   }
 `
 const RadioButtons = styled.div`

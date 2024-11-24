@@ -3,7 +3,10 @@ import EmptyCart from "@/components/Checkout/EmptyCart";
 import CheckoutForm from "@/components/Form/CheckoutForm";
 import Layout from "@/layout";
 import Head from "next/head";
+import Link from "next/link";
+import { FaArrowLeft } from "react-icons/fa6";
 import { useSelector } from "react-redux";
+import styled from "styled-components";
 
 export default function CheckoutPage() {
   const cart = useSelector((state: any) => state.cart);
@@ -30,6 +33,10 @@ export default function CheckoutPage() {
           <EmptyCart />
         ) : (
           <>
+            <BackWrapper href={'/'} >
+              <FaArrowLeft size={16} color="#5A5A5A" />
+              <Span>Página inicial</Span>
+            </BackWrapper>
             <CheckoutList />
             <CheckoutForm />
           </>
@@ -38,3 +45,24 @@ export default function CheckoutPage() {
     </>
   );
 }
+
+const BackWrapper = styled(Link)`
+  margin-left: auto;
+  margin-right: auto;
+  padding: 8px 16px 0 16px;
+
+  align-self: flex-start;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 8px;
+  -webkit-tap-highlight-color: transparent;
+`
+const Span = styled.span`
+  color: #5A5A5A;
+  font-size: 14px;
+  text-align: center;
+  font-weight: 500;
+`
