@@ -1,5 +1,6 @@
 import { NewProduct } from "@/types/productType";
 import { addProduct } from "@/utils/functions";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
@@ -24,6 +25,7 @@ const ProductForm = () => {
     stock: null
   }]
   const [variants, setVariants] = useState<any>(variantsInitialState);
+  console.log(variants)
 
   const handleNewProduct = async (e: any) => {
     e.preventDefault()
@@ -32,7 +34,10 @@ const ProductForm = () => {
 
   const handleAdd = (e: any) => {
     e.preventDefault()
-    const abc = [...variants, { id: v4().slice(-12) }]
+    const abc = [...variants, { 
+      id: v4().slice(-12),
+      promotional: null,
+    }]
     setVariants(abc)
   }
   const handleChangeName = (onChangeValue: any, i: any) => {
@@ -71,8 +76,51 @@ const ProductForm = () => {
     setVariants(inputData)
   }
 
+  const handleFormattedPrice = (e: React.ChangeEvent<HTMLInputElement>, i: number) => {
+    const rawValue = e.target.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+    const numericValue = parseInt(rawValue, 10) || 0; // Converte para número (em centavos)
+
+    const formattedValue = Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    }).format(numericValue / 100); // Formata para Real
+
+    // Atualiza a exibição do valor formatado sem alterar a lógica do preço
+    const updatedVariants = [...variants];
+    updatedVariants[i].formattedPrice = formattedValue; // Atualiza apenas a exibição
+    setVariants(updatedVariants);
+
+    // Chama a função original passando o valor numérico bruto (em centavos convertido para reais)
+    e.target.value = (numericValue / 100).toString(); // Ajusta o valor do evento
+    handleChangePrice(e, i);
+  };
+
+  const handleFormattedPromotional = (e: React.ChangeEvent<HTMLInputElement>, i: number) => {
+    const rawValue = e.target.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+    const numericValue = parseInt(rawValue, 10) || 0; // Converte para número (em centavos)
+
+    const formattedValue = Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    }).format(numericValue / 100); // Formata para Real
+
+    // Atualiza a exibição do valor formatado sem alterar a lógica do preço
+    const updatedVariants = [...variants];
+    updatedVariants[i].formattedPromotional = formattedValue; // Atualiza apenas a exibição
+    setVariants(updatedVariants);
+
+    // Chama a função original passando o valor numérico bruto (em centavos convertido para reais)
+    e.target.value = (numericValue / 100).toString(); // Ajusta o valor do evento
+    handleChangePromotional(e, i);
+  };
+
   return (
     <Form onSubmit={handleNewProduct}>
+      {(imageUpload.length >= 1) ? (
+        <Image style={{alignSelf: 'flex-start', borderRadius: 8}} src={URL.createObjectURL(imageUpload[0])} alt={''} width={250} height={250} />
+      ) : (
+        <></>
+      )}
       <InputWrapper>
         <Label>Produto</Label>
         <Input type='text' placeholder="Nome do produto" required
@@ -107,7 +155,7 @@ const ProductForm = () => {
 
       {variants.map((data: any, i: any) => {
         return (
-          <div key={i} style={{width: '100%'}}>
+          <div key={i} style={{ width: '100%' }}>
             <InputDoubleWrapper>
               {(variant) ? (
                 <InputWrapper>
@@ -119,16 +167,22 @@ const ProductForm = () => {
               ) : (<></>)}
               <InputWrapper>
                 <Label>Preço</Label>
-                <Input type='number' placeholder="Preço" required
-                  value={data.price} onChange={e => handleChangePrice(e, i)}
+                <Input type="text"
+                  placeholder="Preço"
+                  required
+                  value={variants[i]?.formattedPrice || ''} // Exibe o valor formatado
+                  onChange={e => handleFormattedPrice(e, i)}
                 />
               </InputWrapper>
               {(promoPrice.includes(i)) ? (
                 <InputWrapper>
                   <Label>Preço Promocional</Label>
-                  <Input type='number' placeholder="Preço Promocional" required
-                    value={data.promotional} onChange={e => handleChangePromotional(e, i)}
-                  />
+                  <Input type='text' 
+                  placeholder="Preço Promocional"
+                  required
+                  value={variants[i]?.formattedPromotional || ''} // Exibe o valor formatado
+                  onChange={e => handleFormattedPromotional(e, i)}
+                />
                 </InputWrapper>
               ) : (<></>)}
               <InputWrapper>

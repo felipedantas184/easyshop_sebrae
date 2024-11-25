@@ -36,7 +36,7 @@ const OrdersTable = ({ orders, getProductName, getVariantName }: { orders: Order
                 <Td>{order.paymentMethod}</Td>
                 <Td>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(order.amount)}</Td>
                 <Td>{order.timeStamp.replace(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/, '$3/$2/$1 $4:$5:$6')}</Td>
-                <Td>Pendente</Td>
+                <Td>{order.status}</Td>
               </Tr>
             )))}
           </tbody>

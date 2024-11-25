@@ -81,6 +81,7 @@ type Order = {
     name: string,
     phone: string
   },
+  status: string,
 }
 
 type CartItem = {

@@ -2,7 +2,6 @@ import fireDB, { storage } from "@/firebase/initFirebase"
 import { NewProduct, Order } from "@/types/productType"
 import { addDoc, collection, deleteDoc, doc, getDoc, increment, updateDoc } from "firebase/firestore"
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage"
-import { useRouter } from "next/router"
 import { v4 } from "uuid"
 
 export async function deleteOrder(order: Order) {
@@ -39,12 +38,14 @@ export const addProduct = async (imageUpload: any, newProduct: NewProduct, varia
     if (imageUpload == null) return;
     var imagesUrls: any = []
 
+    const cleanVariants = variants.map(({ formattedPrice, formattedPromotional, ...rest }: any) => rest);
+
     await addDoc(collection(fireDB, "products"), {
       title: newProduct.title,
       brand: newProduct.brand,
       category: newProduct.category,
       description: newProduct.description,
-      variants: variants
+      variants: cleanVariants
     }).then(async (docRef) => {
       for (let i = 0; i < imageUpload.length; i++) {
         const imageRef = ref(storage, `images/${docRef.id}/${imageUpload[i].name + v4()}`);
