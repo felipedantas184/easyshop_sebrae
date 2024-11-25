@@ -99,8 +99,8 @@ const CheckoutForm = () => {
         alert("Não foi possível enviar o e-mail de confirmação.");
       }
 
-      localStorage.setItem("wpp-catalog-order", JSON.stringify(orderData));
-      localStorage.removeItem("wpp-catalog-cart");
+      localStorage.setItem("easy-phone-order", JSON.stringify(orderData));
+      localStorage.removeItem("easy-phone-cart");
 
       await updateStockAfterPurchase(cart);
 

@@ -3,9 +3,10 @@ import Image from "next/image";
 import styled from "styled-components";
 import DetailButton from "../Buttons/DetailButton";
 import ProductFeatures from "./ProductFeatures";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa6";
 import Link from "next/link";
+import { useSelector } from "react-redux";
 
 const ProductDetail = ({ product }: { product: Product }) => {
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0])
@@ -23,6 +24,12 @@ const ProductDetail = ({ product }: { product: Product }) => {
     },
     price: product.variants[0].promotional ? product.variants[0].promotional : product.variants[0].price
   })
+
+  const cart = useSelector((state: any) => state.cart);
+
+  useEffect(() => {
+    localStorage.setItem("easy-phone-cart", JSON.stringify(cart))
+  }, [cart])
 
   return (
     <>

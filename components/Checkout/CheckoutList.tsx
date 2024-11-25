@@ -9,7 +9,7 @@ const CheckoutList = () => {
   const cart = useSelector((state: any) => state.cart);
   
   useEffect(() => {
-    localStorage.setItem("wpp-catalog-cart", JSON.stringify(cart))
+    localStorage.setItem("easy-phone-cart", JSON.stringify(cart))
   }, [cart])
 
   return (
