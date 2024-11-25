@@ -46,9 +46,9 @@ const OrderConfirmation = ({ order }: { order: Order }) => {
         <QrCodeString>
           <Subtitle>{qrCodePix.payload()}</Subtitle>
           {(!isCopied) ? (
-          <Subtitle onClick={() => {navigator.clipboard.writeText(qrCodePix.payload()), setIsCopied(true)}} style={{alignSelf: 'flex-end' , color: '#13131A', cursor: 'pointer'}}>Clique aqui para copiar o código! <FaClipboard style={{cursor: 'pointer'}} size={16}/></Subtitle>  
+          <Subtitle onClick={() => {navigator.clipboard.writeText(qrCodePix.payload()); setIsCopied(true)}} style={{alignSelf: 'flex-end' , color: '#13131A', cursor: 'pointer'}}>Clique aqui para copiar o código! <FaClipboard style={{cursor: 'pointer'}} size={16}/></Subtitle>  
           ) : (
-            <Subtitle onClick={() => {navigator.clipboard.writeText(qrCodePix.payload()), setIsCopied(true)}} style={{alignSelf: 'flex-end' , color: '#13131A'}}>Código copiado! <FaClipboardCheck size={16}/></Subtitle>  
+            <Subtitle onClick={() => {navigator.clipboard.writeText(qrCodePix.payload()); setIsCopied(false)}} style={{alignSelf: 'flex-end' , color: '#13131A'}}>Código copiado! <FaClipboardCheck size={16}/></Subtitle>  
           )}
         </QrCodeString>
         {/**<CheckoutButton href={`https://wa.me//5586995185757?text=${message}`}>Enviar Pedido</CheckoutButton>*/}
