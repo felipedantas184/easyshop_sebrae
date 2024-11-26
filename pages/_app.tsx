@@ -18,7 +18,7 @@ function useRouterReady() {
   return isReady;
 }
 
-const AuthRequired = ['/register'/**, '/auth/dashboard'*/]
+const AuthRequired = ['/auth/register', '/auth/dashboard']
 
 export default function App({ Component, pageProps }: AppProps) {
   const isRouterReady = useRouterReady();

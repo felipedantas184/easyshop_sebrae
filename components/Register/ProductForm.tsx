@@ -8,7 +8,7 @@ import { v4 } from "uuid";
 
 const ProductForm = () => {
   const router = useRouter()
-  const [imageUpload, setImageUpload] = useState<any>(null);
+  const [imageUpload, setImageUpload] = useState<any>([]);
   const [variant, setVariant] = useState<boolean>(false);
   const [promoPrice, setPromoPrice] = useState<any>([]);
   const [newProduct, setNewProduct] = useState<NewProduct>({

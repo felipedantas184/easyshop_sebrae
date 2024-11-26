@@ -1,10 +1,15 @@
 import Image from "next/image";
 import { FaTimes } from "react-icons/fa";
-import { Close, Container, Item, Logo, Menu, PageLink, CheckoutButton, Wrapper, TitleWrapper, BigWrapper, PageInternalLink } from "./styles";
+import { Close, Container, Item, Logo, Menu, PageLink, CheckoutButton, Wrapper, TitleWrapper, BigWrapper, PageInternalLink, LogoutButton, Span } from "./styles";
 import { FaRegEnvelope, FaHouse, FaInstagram, FaWhatsapp, FaFacebook } from "react-icons/fa6";
 import { IoLocationOutline } from "react-icons/io5";
+import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "next/router";
 
 const Sidebar = ({ isOpen, toggle }: any) => {
+  const { user, logout } = useAuth()
+  const router = useRouter()
+
   return (
     <Container $isOpen={isOpen}>
       <Wrapper>
@@ -23,7 +28,14 @@ const Sidebar = ({ isOpen, toggle }: any) => {
             <Item><PageLink target='_blank' href='mailto:easyshop.piaui@gmail.com' arial-label='Email'><FaRegEnvelope size={20} color="#13131A" />Email</PageLink></Item>
           </Menu>
         </BigWrapper>
-        <CheckoutButton href={`https://wa.me//5586995185757?text=Ol%C3%A1!%20Tenho%20interesse%20em%20saber%20mais%20sobre%20a%20Easy%20Shop!`}><FaWhatsapp size={18} />Mandar mensagem</CheckoutButton>
+        {(user) ? (
+          <div style={{display: 'flex', flexDirection: 'column', maxWidth: 300, width: '100%', justifyContent: 'center', alignItems: 'center'}} >
+            <Span>{user.email}</Span>
+            <LogoutButton onClick={() => { logout(); router.push('/') }}>Logout</LogoutButton>
+          </div>
+        ) : (
+          <CheckoutButton href={`https://wa.me//5586995185757?text=Ol%C3%A1!%20Tenho%20interesse%20em%20saber%20mais%20sobre%20a%20Easy%20Shop!`}><FaWhatsapp size={18} />Mandar mensagem</CheckoutButton>
+        )}
       </Wrapper>
     </Container>
   );
