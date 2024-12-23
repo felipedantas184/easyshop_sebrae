@@ -29,14 +29,14 @@ export default function App({ Component, pageProps }: AppProps) {
     <AuthContextProvider>
       {!AuthRequired.includes(router.pathname) ? (
         <Provider store={store} >
-          <Script async src="https://www.googletagmanager.com/gtag/js?id=G-TJQGSGGCG4"></Script>
+          <Script async src="https://www.googletagmanager.com/gtag/js?id=G-ZL3K5WWZWL"></Script>
           <Script id='google-analytics' >
             {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
 
-            gtag('config', 'G-TJQGSGGCG4');
+            gtag('config', 'G-ZL3K5WWZWL');
             `}
           </Script>
           <Component {...pageProps} />
@@ -51,7 +51,7 @@ export default function App({ Component, pageProps }: AppProps) {
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
 
-            gtag('config', 'G-TJQGSGGCG4');
+            gtag('config', 'G-ZL3K5WWZWL');
             `}
             </Script>
             <Component {...pageProps} />
