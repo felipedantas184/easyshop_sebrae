@@ -2,6 +2,7 @@ import styled from "styled-components";
 import ProductCard from "./ProductCard";
 import { Product } from "@/types/productType";
 import { useState } from "react";
+import Banner from "./Banner";
 
 const ProductList = ({ products }: { products: Product[] }) => {
   const [brandFilter, setBrandFilter] = useState('')
@@ -19,6 +20,7 @@ const ProductList = ({ products }: { products: Product[] }) => {
 
   return (
     <Wrapper>
+      <Banner />
       <TextWrapper>
         <Title>Nossos Produtos</Title>
         {(brandFilter) ? (

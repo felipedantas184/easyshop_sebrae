@@ -29,7 +29,7 @@ const Cart = ({ cartOpen, toggleCart }: any) => {
         ) : (
           <ProductsWrapper>
             {cart.map((product: CartItem) => (
-              <CheckoutCard key={product.id} product={product} />
+              <CheckoutCard key={product.selectedVariant.id} product={product} />
             ))}
           </ProductsWrapper>
         )}
