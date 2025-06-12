@@ -2,10 +2,11 @@ import GeneralInfo from "@/components/Dashboard/GeneralInfo";
 import OrdersTable from "@/components/Dashboard/OrdersTable";
 import ProductsList from "@/components/Dashboard/ProductsList";
 import fireDB from "@/firebase/initFirebase";
-import Layout from "@/layout";
+import DashboardLayout from "@/layout/DashboardLayout";
 import { Order, Product, Variant } from "@/types/productType";
 import { collection, getDocs } from "firebase/firestore";
 import Head from "next/head";
+import { useState } from "react";
 import styled from "styled-components";
 
 export async function getServerSideProps() {
@@ -40,6 +41,8 @@ export async function getServerSideProps() {
 
 
 export default function DashboardPage({ products, orders }: { products: Product[], orders: Order[] }) {
+  const [ordersState, setOrdersState] = useState<Order[]>(orders);
+
   const getProductName = (productId: string) => {
     const product = products.filter((product: any) => product.id == productId)
     const productName = (product[0].title)
@@ -76,13 +79,18 @@ export default function DashboardPage({ products, orders }: { products: Product[
         <meta property="twitter:image" content="/apple-touch-icon.png" />
       </Head>
 
-      <Layout>
+      <DashboardLayout>
         <Section>
-          <GeneralInfo orders={orders} />
-          <ProductsList products={products} />
-          <OrdersTable orders={orders} getProductName={getProductName} getVariantName={getVariantName} />
+            <GeneralInfo orders={orders} />
+            <ProductsList products={products} />
+          <OrdersTable
+            orders={ordersState}
+            setOrders={setOrdersState}
+            getProductName={getProductName}
+            getVariantName={getVariantName}
+          />
         </Section>
-      </Layout>
+      </DashboardLayout>
     </>
   );
 }
@@ -94,10 +102,26 @@ const Section = styled.section`
   padding: 25px 8px;
   margin-left: auto;
   margin-right: auto;
+  
+  overflow-y: scroll;
 
   display: flex;
   flex-direction: column;
   gap: 16px;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+`
+const Double = styled.div`  
+  width: 100%;
+  
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  @media screen and (max-width: 768px) {
+  flex-direction: column;
+  align-items: center;
+}
 `

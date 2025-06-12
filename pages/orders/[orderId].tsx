@@ -44,6 +44,20 @@ export const getServerSideProps = async (context: any) => {
 }
 
 export default function OrderConfirmationPage({ order }: { order: Order }) {
+  const handleCheckout = async () => {
+    const response = await fetch("/api/mercadoPago", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ items: order.cart }),
+    });
+    const data = await response.json();
+    if (data.init_point) {
+      window.location.href = data.init_point;
+    }
+
+    console.log(JSON.stringify(order.cart))
+  };
+
   return (
     <>
       <Head>
@@ -70,7 +84,10 @@ export default function OrderConfirmationPage({ order }: { order: Order }) {
           <Wrapper>
             <ColumnWrapper>
               <OrderConfirmation order={order} />
-              <OrderInfo order={order} />            
+              <button onClick={handleCheckout}>
+                Pagar com Mercado Pago
+              </button>
+              <OrderInfo order={order} />
             </ColumnWrapper>
             <OrderList order={order} />
           </Wrapper>

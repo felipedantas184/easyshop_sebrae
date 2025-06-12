@@ -1,5 +1,5 @@
 import ProductForm from "@/components/Register/ProductForm";
-import Layout from "@/layout";
+import DashboardLayout from "@/layout/DashboardLayout";
 import Head from "next/head";
 import styled from "styled-components";
 
@@ -21,29 +21,28 @@ export default function RegisterPage() {
         <meta property="twitter:image" content="/apple-touch-icon.png" />
       </Head>
 
-      <Layout>
+      <DashboardLayout>
         <Section>
           <Wrapper>
             <Title>Cadastrar novo produto</Title>
             <ProductForm />
           </Wrapper>
         </Section>
-      </Layout>
+      </DashboardLayout>
     </>
   );
 }
 
 
 export const Section = styled.section`
+  height: 100%;
   background-color: #F6F6F6;
   padding: 25px 0;
+  overflow-y: scroll;
 `
 export const Wrapper = styled.div`
   width: 100%;
-  max-width: 1080px;
   padding: 0 16px;
-	margin-left: auto;
-	margin-right: auto;
 
 	display: flex;
 	flex-direction: column;
